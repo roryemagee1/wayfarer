@@ -1,6 +1,6 @@
 class Travelers {
-  constructor() {
-
+  constructor(data) {
+    this.userData = data;
   }
 }
 
