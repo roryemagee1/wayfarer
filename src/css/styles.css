@@ -1,0 +1,60 @@
+html {
+  height: vh;
+  width: vw;
+  background: green;
+}
+
+body {
+  background: green;
+  display: flex;
+  flex-direction: column;
+  /* align-items: space-between; */
+}
+
+/******* Nav *******/
+
+nav {
+  background: red;
+  display: flex;
+  justify-content: space-between;
+  height: 70px;
+  /* width: vw; */
+  min-width: 600px;
+}
+
+.profile-icons {
+  display: flex;
+}
+
+/******* Dashboard *******/
+
+.dashboard {
+  height: 80vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.trip-form {
+  background: blue;
+  width: 50vw;
+  height: 60px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.upcoming-trips, .past-trips {
+  background: yellow;
+  height: 180px;
+  width: 100vh;
+}
+
+.upcoming-reel, .past-reel {
+
+}
+
+.photo {
+  background: purple;
+}
