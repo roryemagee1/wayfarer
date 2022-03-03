@@ -7,10 +7,46 @@
   <title>Webpack Starter Kit</title>
 </head>
 <body>
-  <img src="./images/turing-logo.png" alt="turing logo">
-  
-  <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
+ <nav>
+   <h1> Wayfarer </h1>
+   <div class="profile-icons">
+     <h1> Username: John Doe-- </h1>
+     <h1> --Image-- </h1>
+     <h1> --Settings-- </h1>
+   </div>
+ </nav>
+ <section class="dashboard">
+   <form class="trip-form" id=2>
+     <input type="date" placeholder="Date" name="date" required/>
+     <input type="date" placeholder="Date" name="date" required/>
+     <label for="guests"> Guests </label>
+     <select name="guests">
+       <option value=1> 1 </option>
+       <option value=2> 2 </option>
+       <option value=3> 3 </option>
+       <option value=4> 4 </option>
+     </select>
+     <input type="submit" value="Explore!">
+   </form>
+   <article class="upcoming-trips">
+     <h1> Upcoming Trips </h1>
+     <div class="upcoming-reel">
+       <div class="photo"></div>
+       <div class="photo"></div>
+       <div class="photo"></div>
+       <div class="photo"></div>
+     </div>
+   </article>
+   <article class="past-trips">
+     <h1> Past Trips </h1>
+     <div class="past-reel">
+       <div class="photo"></div>
+       <div class="photo"></div>
+       <div class="photo"></div>
+       <div class="photo"></div>
+     </div>
+   </article>
+ </section>
   <script src="bundle.js"></script>
-
 </body>
 </html>
