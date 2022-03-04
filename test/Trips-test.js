@@ -18,18 +18,18 @@ describe('Trips', () => {
     expect(Trips).to.not.be.a('integer');
   });
 
-  it('should hold all of the traveler data', () => {
+  it('should hold all of the trips data', () => {
     expect(trips.data).to.equal(tripsTestData);
     expect(trips.data).to.not.equal(oneTrip);
     expect(trips.data).to.not.equal(travelersTestData);
   });
 
-  it('should contain all of the traveler objects found in the data', () => {
-    for (let i = 0; i < trips.data.trips; i++) {
-      expect(travelers.data.trips[i]).to.equal(tripsTestData[i]);
+  it('should contain all of the trip objects found in the data', () => {
+    for (let i = 0; i < trips.data.trips.length; i++) {
+      expect(trips.data.trips[i]).to.equal(tripsTestData.trips[i]);
     }
-    for (let i = 0; i < trips.data.trips; i++) {
-      expect(travelers.data.trips[i]).to.not.equal(travelersTestData[i]);
+    for (let i = 0; i < trips.data.trips.length; i++) {
+      expect(trips.data.trips[i]).to.not.equal(travelersTestData.travelers[i]);
     }
   })
 

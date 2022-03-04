@@ -27,11 +27,11 @@ describe('Travelers', () => {
   });
 
   it('should contain all of the traveler objects found in the data', () => {
-    for (let i = 0; i < travelers.data.travelers; i++) {
-      expect(travelers.data.travelers[i]).to.equal(travelersTestData[i]);
+    for (let i = 0; i < travelers.data.travelers.length; i++) {
+      expect(travelers.data.travelers[i]).to.equal(travelersTestData.travelers[i]);
     }
-    for (let i = 0; i < travelers.data.travelers; i++) {
-      expect(travelers.data.travelers[i]).to.not.equal(tripsTestData[i]);
+    for (let i = 0; i < travelers.data.travelers.length; i++) {
+      expect(travelers.data.travelers[i]).to.not.equal(tripsTestData.trips[i]);
     }
   })
 
