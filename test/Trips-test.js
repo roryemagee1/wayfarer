@@ -9,13 +9,13 @@ describe('Trips', () => {
 
   beforeEach(() => {
     trips = new Trips(tripsTestData);
-
   })
 
   it('should be a function', () => {
     expect(Trips).to.be.a('function');
     expect(Trips).to.not.be.a('string');
-    expect(Trips).to.not.be.a('integer');
+    expect(Trips).to.not.be.an('integer');
+    expect(Trips).to.not.be.an('object');
   });
 
   it('should hold all of the trips data', () => {
@@ -31,6 +31,15 @@ describe('Trips', () => {
     for (let i = 0; i < trips.data.trips.length; i++) {
       expect(trips.data.trips[i]).to.not.equal(travelersTestData.travelers[i]);
     }
-  })
+  });
+
+  it('should only contain objects with "id", "name", and "travelerType" as keys', () => {
+    for (let i = 0; i < trips.data.trips; i++) {
+      expect(trips.data.trips[i]).to.have.all.keys("userID", "destinationID", "travelers", "date", "duration", "status", "suggestedActivities");
+    }
+    for (let i = 0; i < trips.data.trips; i++) {
+      expect(trips.data.trips[i]).to.not.have.some.keys("id", "name", "travelerType");
+    }
+  });
 
 });

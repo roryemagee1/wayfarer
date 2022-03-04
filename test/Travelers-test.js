@@ -11,13 +11,13 @@ describe('Travelers', () => {
   beforeEach(() => {
     travelers = new Travelers(travelersTestData);
     // notTravelers = new Travelers(tripsTestData);
-
   })
 
   it('should be a function', () => {
     expect(Travelers).to.be.a('function');
     expect(Travelers).to.not.be.a('string');
-    expect(Travelers).to.not.be.a('integer');
+    expect(Travelers).to.not.be.an('integer');
+    expect(Travelers).to.not.be.an('object');
   });
 
   it('should hold all of the traveler data', () => {

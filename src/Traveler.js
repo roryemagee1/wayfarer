@@ -4,6 +4,15 @@ class Traveler {
     this.name = name;
     this.travelerType = travelerType;
   }
+
+  retrieveAllTrips() {
+    
+  }
+
+  totalSpentOnTrips() {
+
+  }
+
 }
 
 export default Traveler;
