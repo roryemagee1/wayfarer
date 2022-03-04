@@ -3,22 +3,34 @@ const expect = chai.expect;
 import Trips from '../src/Trips.js';
 import {tripsTestData, oneTrip, travelersTestData, oneTraveler} from '../src/testData';
 
-describe('Traveler', () => {
+describe('Trips', () => {
 
-  let exampleVar;
+  let trips;
 
   beforeEach(() => {
-    exampleVar = "Test";
+    trips = new Trips(tripsTestData);
+
   })
 
-  it('should return true', () => {
-    expect(true).to.equal(true);
-    console.log(exampleVar);
+  it('should be a function', () => {
+    expect(Trips).to.be.a('function');
+    expect(Trips).to.not.be.a('string');
+    expect(Trips).to.not.be.a('integer');
   });
 
-  it('should return true', () => {
-    expect(true).to.equal(true);
-    console.log(exampleVar);
+  it('should hold all of the traveler data', () => {
+    expect(trips.data).to.equal(tripsTestData);
+    expect(trips.data).to.not.equal(oneTrip);
+    expect(trips.data).to.not.equal(travelersTestData);
   });
+
+  it('should contain all of the traveler objects found in the data', () => {
+    for (let i = 0; i < trips.data.trips; i++) {
+      expect(travelers.data.trips[i]).to.equal(tripsTestData[i]);
+    }
+    for (let i = 0; i < trips.data.trips; i++) {
+      expect(travelers.data.trips[i]).to.not.equal(travelersTestData[i]);
+    }
+  })
 
 });
