@@ -5,13 +5,14 @@ class Traveler {
     this.travelerType = travelerType;
   }
 
-  retrieveAllTrips() {
-    
-  }
+  // retrieveAllTrips(param) {
+  //   const result = param.data.trips.filter(trip => trip.userID === this.id);
+  //   return result
+  // }
 
-  totalSpentOnTrips() {
-
-  }
+  // totalSpentOnTrips() {
+  //
+  // }
 
 }
 

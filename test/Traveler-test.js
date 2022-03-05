@@ -36,7 +36,12 @@ describe('Traveler', () => {
     expect(traveler.travelerType).to.not.equal('thrill-seeker');
   });
 
-  it('should have a method for pulling all of the user\'s trips', () => {});
+  // it('should have a method for pulling all of the user\'s trips', () => {
+  //   expect(traveler.retrieveAllTrips(trips)).to.deep.equal([
+  //     {"id":1,"userID":1,"destinationID":49,"travelers":1,"date":"2022/09/16","duration":8,"status":"approved","suggestedActivities":[]},
+  //     {"id":4,"userID":1,"destinationID":14,"travelers":2,"date":"2022/02/25","duration":10,"status":"approved","suggestedActivities":[]}
+  //   ]);
+  // });
 
   it('should have a method for calculating the total spent by the user during the last year', () => {});
 
