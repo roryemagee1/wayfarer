@@ -5,63 +5,57 @@ class Trips {
 
   dateConversion(date) {
     let splitDate = date.split('/');
-    // console.log(splitDate);
     let comparisonDate = new Date(splitDate[0], splitDate[1], splitDate[2]);
-    // console.log(comparisonDate);
     return comparisonDate;
   }
 
-  dateConversionForPresentAfter(date) {
+  dateConversionForDayAfter(date) {
     let splitDate = date.split('/');
-    // console.log(splitDate);
     let comparisonDate = new Date(splitDate[0], splitDate[1], splitDate[2]+1);
-    // console.log(comparisonDate);
     return comparisonDate;
   }
 
-  dateConversionForPresentBefore(date) {
+  dateConversionForDayBefore(date) {
     let splitDate = date.split('/');
-    // console.log(splitDate);
     let comparisonDate = new Date(splitDate[0], splitDate[1], splitDate[2]-1);
-    // console.log(comparisonDate);
     return comparisonDate;
   }
 
-  retrieveAllTrips(param) {
-    let result = "No Trip data available."
-    if (this.data.trips.find(trip => trip.userID === param)) {
-      result = this.data.trips.filter(trip => trip.userID === param);
+  retrieveAllTrips(traveler) {
+    let result = 'No Trip data available.'
+    if (this.data.trips.find(trip => trip.userID === traveler.id)) {
+      result = this.data.trips.filter(trip => trip.userID === traveler.id);
     }
     return result;
   }
 
-  retrievePastTrips(param, useDate) {
-    let input = this.retrieveAllTrips(param);
+  retrievePastTrips(traveler, useDate) {
+    let input = this.retrieveAllTrips(traveler);
     let result = input.filter(trip => (this.dateConversion(trip.date) < this.dateConversion(useDate)));
     return result;
   }
 
-  retrieveFutureTrips(param, useDate) {
-    let input = this.retrieveAllTrips(param);
+  retrieveFutureTrips(traveler, useDate) {
+    let input = this.retrieveAllTrips(traveler);
     let result = input.filter(trip => (this.dateConversion(trip.date) > this.dateConversion(useDate)));
     return result;
   }
 
-  retrievePendingTrips(param, useDate) {
-    let input = this.retrieveAllTrips(param);
+  retrievePendingTrips(traveler, useDate) {
+    let input = this.retrieveAllTrips(traveler);
     let result = input.filter(trip => ((this.dateConversion(trip.date) > this.dateConversion(useDate)) && (trip.status === 'pending')));
     return result;
   }
 
-  retrievePresentTrips(param, useDate) {
-    let input = this.retrieveAllTrips(param);
-    let result = input.filter(trip => ((this.dateConversionForPresentAfter(trip.date) > this.dateConversion(useDate)) && (this.dateConversionForPresentBefore(trip.date) < this.dateConversion(useDate))));
+  retrievePresentTrips(traveler, useDate) {
+    let input = this.retrieveAllTrips(traveler);
+    let result = input.filter(trip => ((this.dateConversionForDayAfter(trip.date) > this.dateConversion(useDate)) && (this.dateConversionForDayBefore(trip.date) < this.dateConversion(useDate))));
     return result;
   }
 
-  retrieveTripsFromNow(param, useDate) {
-    let input = this.retrieveAllTrips(param);
-    let pastDateCuts = this.retrievePastTrips(param, useDate);
+  retrieveTripsFromNow(traveler, useDate) {
+    let input = this.retrieveAllTrips(traveler);
+    let pastDateCuts = this.retrievePastTrips(traveler, useDate);
     let result = [];
     input.forEach(trip => {
       if (!pastDateCuts.includes(trip)) {
@@ -69,6 +63,44 @@ class Trips {
       }
     })
     return result;
+  }
+
+  retrieveTripsBetweenDates(traveler, begin, end) {
+    let input = this.retrieveAllTrips(traveler)
+    let result = input.filter(trip => ((this.dateConversionForDayBefore(begin) < this.dateConversion(trip.date)) && (this.dateConversionForDayAfter(end) > this.dateConversion(trip.date))));
+    return result;
+  }
+
+  getTodayDate() {
+    let today = new Date();
+    let date = today.getFullYear();
+    if (today.getMonth()+1 < 10) {
+      date = date + '/0' + (today.getMonth()+1);
+    } else {
+      date = date + '/' + (today.getMonth()+1);
+    }
+    if (today.getDate() < 10) {
+      date = date + '/0' + (today.getDate());
+    } else {
+      date = date + '/' + (today.getDate());
+    }
+    return date;
+  }
+
+  getYearBeginDate() {
+    let today = new Date();
+    let begin = today.getFullYear() + '/01/01';
+    return begin;
+  }
+
+  getYearEndDate() {
+    let today = new Date();
+    let end = today.getFullYear() + '/12/12';
+    return end;
+  }
+
+  getTotalSpent(traveler) {
+    return 0;
   }
 
 }
