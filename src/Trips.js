@@ -61,7 +61,14 @@ class Trips {
 
   retrieveTripsFromNow(param, useDate) {
     let input = this.retrieveAllTrips(param);
-    let pastDateCuts = this.retrievePastTrips(param);
+    let pastDateCuts = this.retrievePastTrips(param, useDate);
+    let result = [];
+    input.forEach(trip => {
+      if (!pastDateCuts.includes(trip)) {
+        result.push(trip);
+      }
+    })
+    return result;
   }
 
 }
