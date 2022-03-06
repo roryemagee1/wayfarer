@@ -36,11 +36,11 @@ describe('Travelers', () => {
   })
 
   it('should only contain objects with "id", "name", and "travelerType" as keys', () => {
-    for (let i = 0; i < travelers.data.travelers; i++) {
+    for (let i = 0; i < travelers.data.travelers.length; i++) {
       expect(travelers.data.travelers[i]).to.have.all.keys("id", "name", "travelerType");
     }
-    for (let i = 0; i < travelers.data.travelers; i++) {
-      expect(travelers.data.travelers[i]).to.not.have.some.keys("userID", "destinationID", "travelers", "date", "duration", "status", "suggestedActivities");
+    for (let i = 0; i < travelers.data.travelers.length; i++) {
+      expect(travelers.data.travelers[i]).to.not.have.same.keys("userID", "destinationID", "travelers", "date", "duration", "status", "suggestedActivities");
     }
   })
 
