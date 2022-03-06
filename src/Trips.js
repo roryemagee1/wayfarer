@@ -99,8 +99,58 @@ class Trips {
     return end;
   }
 
-  getTotalSpent(traveler) {
-    return 0;
+  // getYearlyCostLedger(traveler, destinationData) {
+  //   let begin = this.getYearBeginDate();
+  //   let today = this.getTodayDate();
+  //   let input = this.retrieveTripsBetweenDates(traveler, begin, today);
+  //   input.reduce((acc, trip) => {
+  //     let theDestination = destinationData.data.destinations.find(destination => trip.destinationID === destination.id));
+  //     let obj = {};
+  //     obj["tripName"] = theDestination.destination;
+  //     obj["lodgingCostPerDay"] = theDestination.estimatedLodgingCostPerDay;
+  //     obj["numberOfDays"] = trip.duration
+  //     obj["totalLodgingCost"] = obj["lodgingCostPerDay"] * obj["numberOfDays"];
+  //     obj["roundTripFlightCost"] = theDestination.estimatedFlightCostPerPerson * 2;
+  //     obj["totalGuests"] = trip.travelers;
+  //     obj["totalFlightCost"] = obj["roundTripFlightCost"] * obj["totalGuests"];
+  //     obj
+  //   }, []);
+  // }
+
+  // getCostLedger(tripID, destinationData) {
+  //   let theTrip = this.data.trips.find(trip => trip.id === tripID);
+  //   let theDestination = destinationData.data.destinations.find(destination => theTrip.destinationID === destination.id);
+  //   let obj = {};
+  //   console.log(theDestination);
+  //   // obj["tripName"] = theDestination.destination;
+  //   // obj["lodgingCostPerDay"] = theDestination.estimatedLodgingCostPerDay;
+  //   // obj["numberOfDays"] = theTrip.duration
+  //   // obj["totalLodgingCost"] = obj["lodgingCostPerDay"] * obj["numberOfDays"];
+  //   // obj["roundTripFlightCost"] = theDestination.estimatedFlightCostPerPerson * 2;
+  //   // obj["totalGuests"] = theTrip.travelers;
+  //   // obj["totalFlightCost"] = obj["roundTripFlightCost"] * obj["totalGuests"];
+  //   // obj["subTotal"] = obj["totalLodgingCost"] + obj["totalFlightCost"];
+  //   // obj["agentPercentage"] = 0.1;
+  //   // obj["agentFee"] = obj["subTotal"] * obj["agentPercentage"];
+  //   // obj["totalCost"] = obj["subTotal"] + obj["agentFee"];
+  //   // console.log(obj);
+  //   // return obj;
+  // }
+
+  getTotalSpent(traveler, destinationData) {
+    let begin = this.getYearBeginDate();
+    let today = this.getTodayDate();
+    let input = this.retrieveTripsBetweenDates(traveler, begin, today);
+    let result = input.reduce((acc, trip) => {
+      let theDestination = destinationData.data.destinations.find(destination => trip.destinationID === destination.id);
+      let total = 0;
+      total += (theDestination.estimatedLodgingCostPerDay * trip.duration)
+      total += (theDestination.estimatedFlightCostPerPerson * trip.travelers) * 2;
+      total * 1.1;
+      acc += total;
+      return acc;
+    }, 0);
+    return result;
   }
 
 }

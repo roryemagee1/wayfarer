@@ -3,18 +3,19 @@ const expect = chai.expect;
 import Trips from '../src/Trips.js';
 import Traveler from '../src/Traveler.js';
 import Destinations from '../src/Destinations.js';
-import {tripsTestData, oneTrip, travelersTestData, oneTraveler} from '../src/testData';
+import {tripsTestData, oneTrip, travelersTestData, oneTraveler, destinationsTestData} from '../src/testData';
 describe('Trips', () => {
 
   let trips;
   let traveler1;
   let notTraveler;
-  let destinations
+  let destinations1;
 
   beforeEach(() => {
     trips = new Trips(tripsTestData);
     traveler1 = new Traveler(oneTraveler);
     notTraveler = new Traveler({id: 0, name: 'Nobody', travelerType: 'Nobody'});
+    destinations1 = new Destinations(destinationsTestData);
   })
 
   it('should be a function', () => {
@@ -113,7 +114,7 @@ describe('Trips', () => {
   });
 
   it('should have a method for pulling the user\'s total spent on trips in the current year', () => {
-    expect(trips.getTotalSpent(traveler1)).to.equal(0);
+    expect(trips.getTotalSpent(traveler1, destinations1)).to.equal(2050);
   });
 
 });
