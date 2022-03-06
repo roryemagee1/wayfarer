@@ -54,17 +54,41 @@ describe('Trips', () => {
   it('should have a method for pulling all of the user\'s trips', () => {
     expect(trips.retrieveAllTrips(traveler.id)).to.deep.equal([
       {"id":1,"userID":1,"destinationID":49,"travelers":1,"date":"2022/09/16","duration":8,"status":"approved","suggestedActivities":[]},
-      {"id":4,"userID":1,"destinationID":14,"travelers":2,"date":"2022/02/25","duration":10,"status":"approved","suggestedActivities":[]}
+      {"id":4,"userID":1,"destinationID":14,"travelers":2,"date":"2022/02/25","duration":10,"status":"approved","suggestedActivities":[]},
+      {"id":5,"userID":1,"destinationID":50,"travelers":1,"date":"2022/09/16","duration":8,"status":"pending","suggestedActivities":[]}
     ]);
     expect(trips.retrieveAllTrips(notTraveler.id)).to.deep.equal('No Trip data available.');
   });
 
   it('should have a method for pulling the user\'s past trips', () => {
-    trips.dateConversion('2021/03/05');
-    // expect(trips.retrieveAllTrips(traveler.id, '2021/03/05')).to.deep.equal([
-    //   {"id":1,"userID":1,"destinationID":49,"travelers":1,"date":"2022/09/16","duration":8,"status":"approved","suggestedActivities":[]}
-    // ]);
-    // expect(trips.retrieveAllTrips(notTraveler.id)).to.deep.equal('No Trip data available.');
+    expect(trips.retrievePastTrips(traveler.id, '2022/03/05')).to.deep.equal([
+      {"id":4,"userID":1,"destinationID":14,"travelers":2,"date":"2022/02/25","duration":10,"status":"approved","suggestedActivities":[]}
+    ]);
+  });
+
+  it('should have a method for pulling the user\'s future trips', () => {
+    expect(trips.retrieveFutureTrips(traveler.id, '2022/03/05')).to.deep.equal([
+      {"id":1,"userID":1,"destinationID":49,"travelers":1,"date":"2022/09/16","duration":8,"status":"approved","suggestedActivities":[]},
+      {"id":5,"userID":1,"destinationID":50,"travelers":1,"date":"2022/09/16","duration":8,"status":"pending","suggestedActivities":[]}
+    ]);
+  });
+
+  it('should have a method for pulling the user\'s pending trips', () => {
+    expect(trips.retrievePendingTrips(traveler.id, '2022/03/05')).to.deep.equal([
+      {"id":5,"userID":1,"destinationID":50,"travelers":1,"date":"2022/09/16","duration":8,"status":"pending","suggestedActivities":[]}
+    ]);
+  });
+
+  it('should have a method for pulling the user\'s present trips', () => {
+    expect(trips.retrievePresentTrips(traveler.id, '2022/02/25')).to.deep.equal([
+      {"id":4,"userID":1,"destinationID":14,"travelers":2,"date":"2022/02/25","duration":10,"status":"approved","suggestedActivities":[]}
+    ]);
+  });
+
+  it('should have a method for pulling the user\'s present and future trips, together', () => {
+    expect(trips.retrievePresentTrips(traveler.id, '2022/02/25')).to.deep.equal([
+      {"id":4,"userID":1,"destinationID":14,"travelers":2,"date":"2022/02/25","duration":10,"status":"approved","suggestedActivities":[]}
+    ]);
   });
 
 });
