@@ -1,15 +1,19 @@
 html {
   height: vh;
   width: vw;
-  background: green;
+  background-image: url('../images/Algarve-photo-1.png');
+  background-position: center;
+  background-size: 300vmin;
 }
 
 body {
-  background: green;
+  /* background: green; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* align-items: space-between; */
+  /* background-image: url('../images/Algarve-photo-2.png');
+  background-position: stretch;
+  background-size: 200% */
 }
 
 /******* Nav *******/
@@ -25,6 +29,7 @@ nav {
 
 .profile-icons {
   display: flex;
+  align-items: center;
 }
 
 /******* Dashboard *******/
@@ -48,25 +53,68 @@ nav {
   justify-content: space-around;
 }
 
-.upcoming-trips, .past-trips {
+.trips-list {
   height: 100%;
-  width: 80%;
+  width: 85vw;
 }
 
-.upcoming-reel, .past-reel {
+/* .upcoming-trips, .past-trips, .pending-trips {} */
+
+.reel {
   background: yellow;
-  height: 100%;
-  width: 100%;
+  height: 30vh;
+  width: 80vw;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: stretch;
+  /* flex-wrap: nowrap;  */
+}
+
+/* .upcoming-reel, .past-reel, .pending-reel {} */
+
+.slide {
+  overflow-x: auto;
+  overflow-y: hidden;
+  text-align: center;
+  padding: 20px;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+.trip-box {
+  background: purple;
+  height: 200px;
+  width: 240px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  /* flex-flow: wrap; */
+  /* overflow: hidden; */
+  /* align-items: center; */
 }
 
 .photo {
-  background: purple;
-  height: 100px;
-  width: 130px;
-  margin: 10px;
+  height: 150%;
+  width: 150%;
+  /* overflow: hidden; */
+}
+
+.photo-title {
+  position: relative;
+  top: 50px;
+  left: 10px;
+  /* top: 20%; */
+}
+
+.photo-text {
+  position: relative;
+  bottom: 20px;
+  left: 10px;
 }
 
 /* Test */
