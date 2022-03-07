@@ -48,12 +48,12 @@ nav {
   justify-content: space-around;
 }
 
-.upcoming-trips, .past-trips {
+.upcoming-trips, .past-trips, .pending-trips {
   height: 100%;
   width: 80%;
 }
 
-.upcoming-reel, .past-reel {
+.upcoming-reel, .past-reel, .pending-reel {
   background: yellow;
   height: 100%;
   width: 100%;
