@@ -27,9 +27,11 @@ const upcomingTripsReel = document.querySelector('.upcoming-reel');
 const pendingTripsReel = document.querySelector('.pending-reel');
 const pastTripsReel = document.querySelector('.past-reel');
 
+const destinationList = document.querySelector('.destination-list')
+
 // DOM
 let makePromise = (id) => {Promise.all([fetchData('trips'), fetchData('travelers'), fetchData('destinations'), fetchInstance('travelers', id)]).then(data => {
-  console.log(data);
+  // console.log(data);
   let trips = new Trips(data[0]);
   let travelers = new Travelers(data[1]);
   let destinations = new Destinations(data[2]);
@@ -40,11 +42,12 @@ let makePromise = (id) => {Promise.all([fetchData('trips'), fetchData('travelers
   // console.log(upcomingData);
   // console.log(pendingData);
   // console.log(pastData)
-  console.log(trips);
+  // console.log(trips);
   // console.log(travelers);
   console.log(destinations);
-  console.log(traveler);
+  // console.log(traveler);
   loadProfile(traveler, trips, destinations);
+  loadDestinations(destinations);
   loadTripReel(upcomingTripsReel, upcomingData, destinations, traveler);
   loadTripReel(pendingTripsReel, pendingData, destinations, traveler);
   loadTripReel(pastTripsReel, pastData, destinations, traveler);
@@ -55,12 +58,9 @@ let makePromise = (id) => {Promise.all([fetchData('trips'), fetchData('travelers
 // FUNCTIONS
 
 const loadTripReel = (reelSelector, tripDataSet, destinationDataSet, traveler) => {
-  console.log(tripDataSet);
-  console.log(destinationDataSet);
   reelSelector.innerHTML = '';
   tripDataSet.forEach(entry => {
     let destinationOutput = destinationDataSet.data.destinations.find(destination => entry.destinationID === destination.id);
-    console.log(destinationOutput);
     reelSelector.innerHTML += `
       <div class="trip-box" id=${entry.id}>
         <h6 class="photo-title"> ${destinationOutput.destination} </h6>
@@ -82,6 +82,16 @@ const loadProfile = (travelerData, tripData, destinationData) => {
       <h1> Settings </h1>
     </div>
   `
+}
+
+const loadDestinations = (destinationData) => {
+  destinationList.innerHTML = '';
+  destinationData.data.destinations.forEach(destination => {
+    console.log(destination);
+    destinationList.innerHTML += `
+      <option id=${destination.id}> ${destination.destination} </option>
+    `
+  })
 }
 
 // EVENT LISTENERS

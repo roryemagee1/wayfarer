@@ -17,6 +17,9 @@
  </nav>
  <section class="dashboard">
    <form class="trip-form" id=2>
+     <label for="destination-list"> Choose Destination </label>
+     <select class="destination-list" name="destination-list" id="destination-list">
+     </select>
      <input type="date" placeholder="Date" name="date" required/>
      <label for="duration"> Number of Days </label>
      <input type="number" name="duration" class="duration" id="duration" min="1" max="20" required>
@@ -63,14 +66,12 @@
    </article>
    <article class="pending-trips trips-list">
      <h1> Pending Trips </h1>
-     <div class="slide">
-     <div class="pending-reel reel">
+     <div class="pending-reel reel slide">
        <!-- <div class="trip-box"></div>
        <div class="trip-box"></div>
        <div class="trip-box"></div>
        <div class="trip-box"></div> -->
      </div>
-   </div>
    </article>
    <article class="past-trips trips-list">
      <h1> Past Trips </h1>
