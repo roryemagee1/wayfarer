@@ -2,14 +2,19 @@ html {
   height: vh;
   width: vw;
   background: green;
+  background-image: url('../images/Algarve-photo-1.png');
+  background-position: center;
+  background-size: 200%;
 }
 
 body {
-  background: green;
+  /* background: green; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* align-items: space-between; */
+  /* background-image: url('../images/Algarve-photo-2.png');
+  background-position: stretch;
+  background-size: 200% */
 }
 
 /******* Nav *******/
