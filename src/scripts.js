@@ -12,28 +12,22 @@ import Trip from './Trip.js'
 import Travelers from './Travelers.js';
 import Traveler from './Traveler.js';
 import Destinations from './Destinations.js';
-import {fetchData} from './apiCalls.js';
+import {fetchData, fetchInstance} from './apiCalls.js';
 import {tripsTestData, oneTrip, travelersTestData, oneTraveler, destinationsTestData} from './testData';
 
 // DOM
-let makePromise = () => {Promise.all([fetchData('trips'), fetchData('travelers'), fetchData('destinations')]).then(data => {
+let makePromise = (id) => {Promise.all([fetchData('trips'), fetchData('travelers'), fetchData('destinations'), fetchInstance('travelers', id)]).then(data => {
   console.log(data);
   let trips = new Trips(data[0].trips);
   let travelers = new Travelers(data[1].travelers);
   let destinations = new Destinations(data[2].destinations);
+  let traveler = new Traveler(data[3]);
   console.log(trips);
   console.log(travelers);
   console.log(destinations);
-  // let activityRepo = new UserRepository(data[3].activityData)
-  // let jarvis = new User(newRepo.allData[1]);
-  // let hydration = new Hydration(jarvis.id, hydrationRepo);
-  // let sleep = new Sleep(jarvis.id, sleepRepo);
-  // let activity = new Activity(jarvis.id, activityRepo);
-  // updateMainBox(jarvis, newRepo);
-  // updateHydrationBox(hydration);
-  // updateSleepBox(sleep);
+  console.log(traveler);
   })
 };
 
 // EVENT LISTENERS
-window.addEventListener("onload", makePromise());
+window.addEventListener("onload", makePromise(1));
