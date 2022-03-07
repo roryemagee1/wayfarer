@@ -41,9 +41,11 @@ class Trips {
     return result;
   }
 
-  retrievePendingTrips(traveler, useDate) {
+  // retrievePendingTrips(traveler, useDate) {
+  retrievePendingTrips(traveler) {
     let input = this.retrieveAllTrips(traveler);
-    let result = input.filter(trip => ((this.dateConversion(trip.date) > this.dateConversion(useDate)) && (trip.status === 'pending')));
+    // let result = input.filter(trip => ((this.dateConversion(trip.date) > this.dateConversion(useDate)) && (trip.status === 'pending')));
+    let result = input.filter(trip => trip.status === 'pending');
     return result;
   }
 

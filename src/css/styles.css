@@ -25,6 +25,7 @@ nav {
 
 .profile-icons {
   display: flex;
+  align-items: center;
 }
 
 /******* Dashboard *******/
@@ -58,15 +59,22 @@ nav {
   height: 100%;
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
 }
 
-.photo {
+.trip-box {
   background: purple;
   height: 100px;
   width: 130px;
   margin: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.photo {
+  height: 80%;
+  width: 80%;
 }
 
 /* Test */
