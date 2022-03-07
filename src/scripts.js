@@ -35,7 +35,6 @@ const formTotal = document.querySelector('.form-total');
 
 // DOM
 let makePromise = (id) => {Promise.all([fetchData('trips'), fetchData('travelers'), fetchData('destinations'), fetchInstance('travelers', id)]).then(data => {
-  // console.log(data);
   let trips = new Trips(data[0]);
   let travelers = new Travelers(data[1]);
   let destinations = new Destinations(data[2]);
@@ -43,13 +42,6 @@ let makePromise = (id) => {Promise.all([fetchData('trips'), fetchData('travelers
   let upcomingData = trips.retrievePresentAndFutureTrips(traveler, trips.getTodayDate());
   let pendingData = trips.retrievePendingTrips(traveler)
   let pastData = trips.retrievePastTrips(traveler, trips.getTodayDate());
-  // console.log(upcomingData);
-  // console.log(pendingData);
-  // console.log(pastData)
-  // console.log(trips);
-  // console.log(travelers);
-  // console.log(destinations);
-  // console.log(traveler);
   loadProfile(traveler, trips, destinations);
   loadDestinations(destinations);
   loadTripReel(upcomingTripsReel, upcomingData, destinations, traveler);
