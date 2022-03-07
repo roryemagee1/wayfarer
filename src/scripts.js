@@ -31,6 +31,7 @@ const pastTripsReel = document.querySelector('.past-reel');
 
 const destinationList = document.querySelector('.destination-list');
 const tripForm = document.querySelector('.trip-form');
+const formTotal = document.querySelector('.form-total');
 
 // DOM
 let makePromise = (id) => {Promise.all([fetchData('trips'), fetchData('travelers'), fetchData('destinations'), fetchInstance('travelers', id)]).then(data => {
@@ -60,6 +61,22 @@ let makePromise = (id) => {Promise.all([fetchData('trips'), fetchData('travelers
 
 // FUNCTIONS
 
+const loadProfile = (travelerData, tripData, destinationData) => {
+  profileIcons.innerHTML = '';
+  profileIcons.innerHTML += `
+  <div class="profile-icons">
+  <div>
+  <h5> Username: ${travelerData.name} </h5>
+  <h5> Year Spent: ${tripData.getTotalSpent(travelerData, destinationData)} </h5>
+  </div>
+  <h1> Settings </h1>
+  </div>
+  `;
+  tripForm.userID = travelerData.id;
+  tripForm.destinations = destinationData;
+  tripForm.trips = tripData;
+}
+
 const loadTripReel = (reelSelector, tripDataSet, destinationDataSet, traveler) => {
   reelSelector.innerHTML = '';
   tripDataSet.forEach(entry => {
@@ -72,22 +89,6 @@ const loadTripReel = (reelSelector, tripDataSet, destinationDataSet, traveler) =
       </div>
     `;
   })
-}
-
-const loadProfile = (travelerData, tripData, destinationData) => {
-  profileIcons.innerHTML = '';
-  profileIcons.innerHTML += `
-    <div class="profile-icons">
-      <div>
-      <h5> Username: ${travelerData.name} </h5>
-      <h5> Year Spent: ${tripData.getTotalSpent(travelerData, destinationData)} </h5>
-      </div>
-      <h1> Settings </h1>
-    </div>
-  `;
-  tripForm.userID = travelerData.id;
-  tripForm.destinations = destinationData;
-  tripForm.trips = tripData;
 }
 
 const loadDestinations = (destinationData) => {
@@ -115,34 +116,6 @@ const postData = (url, newData) => {
   }).catch(error => console.log(error));
 }
 
-// const getNewTripData = (e) => {
-//   e.preventDefault();
-//   const formData = new FormData(e.target);
-//   // console.log(e.target);
-//   // console.log(e.target.destinations);
-//   // console.log(formData);
-//   const lastTripID = e.target.trips.data.trips.length;
-//   const destName = formData.get('destination-list');
-//   // console.log(destName);
-//   const destIDObj = e.target.destinations.data.destinations.find(destination => destination.destination === destName);
-//   // console.log(destIDObj);
-//   const newTrip = {
-//     // id: parseInt(trips.data.trips.length + 1),
-//     id: lastTripID + 1,
-//     userID: parseInt(e.target.userID),
-//     destinationID: destIDObj.id,
-//     travelers: parseInt(formData.get('guests')),
-//     date: formData.get('date'),
-//     duration: parseInt(formData.get('duration')),
-//     status: "pending",
-//     suggestedActivities: []
-//   };
-//   // console.log(newTrip);
-//   postData(tripURL, newTrip);
-//   // makePromise();
-//   e.target.reset();
-// };
-
 // EVENT LISTENERS
 window.addEventListener("onload", makePromise(44));
 
@@ -150,22 +123,14 @@ window.addEventListener("onload", makePromise(44));
 // 44 has lots of data.
 // 45 has pending data.
 
-// tripForm.addEventListener('submit', postData);
 tripForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const formData = new FormData(e.target);
-  // console.log(e.target);
-  // console.log(e.target.destinations);
-  // console.log(formData);
   const lastTripID = e.target.trips.data.trips.length;
   const destName = formData.get('destination-list');
-  // console.log(destName);
   const destIDObj = e.target.destinations.data.destinations.find(destination => destination.destination === destName);
-  // console.log(destIDObj);
   const formattedDate = formData.get('date').replaceAll('-','/');
-  // console.log(dateFormatted);
   const newTrip = {
-    // id: parseInt(trips.data.trips.length + 1),
     id: lastTripID + 1,
     userID: parseInt(e.target.userID),
     destinationID: destIDObj.id,
@@ -179,4 +144,31 @@ tripForm.addEventListener('submit', (e) => {
   postData(tripURL, newTrip);
   makePromise(44);
   e.target.reset();
+});
+
+tripForm.addEventListener('mouseover', (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const destName = formData.get('destination-list');
+  const destIDObj = e.target.destinations.data.destinations.find(destination => destination.destination === destName);
+
+  let totalLodgingCost = destIDObj.estimatedLodgingCostPerDay * parseInt(formData.get('duration'));
+  let totalAirfare = destIDObj.estimatedFlightCostPerPerson * parseInt(formData.get('guests')) * 2;
+  let totalAgentFee = (totalLodgingCost + totalAirfare) * 0.01;
+  let totalCost = totalLodgingCost + totalAirfare + totalAgentFee;
+  let costLedger = [totalLodgingCost, totalAirfare, totalAgentFee, totalCost];
+
+  if (totalCost) {
+    formTotal.innerHTML = '';
+    formTotal.innerHTML += `
+      <h6> Total Cost: ${totalCost}</h6>
+    `;
+  };
+  // formTotal.innerHTML += `
+  //   <p> Lodging: ${totalLodgingCost} </p>
+  //   <p> Airfare: ${totalAirfare} </p>
+  //   <p> Agent Fee: ${totalAgentFee} </p>
+  //   <p> Total: ${totalCost }</p>
+  // `;
+  // e.target.reset();
 });

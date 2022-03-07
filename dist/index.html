@@ -16,6 +16,7 @@
    </div>
  </nav>
  <section class="dashboard">
+
    <form class="trip-form" id=2>
      <label for="destination-list"> Choose Destination </label>
      <select class="destination-list" name="destination-list" id="destination-list">
@@ -24,37 +25,40 @@
      <label for="duration"> Number of Days </label>
      <input type="number" name="duration" class="duration" id="duration" min="1" max="20" required>
      <!-- <select name="duration">
-        </select> -->
+       <option value=1> 1 </option>
+     </select> -->
      <label for="guests"> Guests </label>
      <input type="number" name="guests" class="guests" id="guests" min="1" max="6" required>
      <!-- <select name="guests">
+       <option value=1> 1 </option>
      </select> -->
-     <input type="submit" value="Explore!">
+     <input type="submit" value="Submit!">
+     <div class="form-total">
+       <h6> Total Trip Cost: </h6>
+     </div>
    </form>
+
    <article class="upcoming-trips trips-list">
      <h1> Present & Upcoming Trips </h1>
      <div class="upcoming-reel reel slide">
-       <!-- <div class="trip-box"></div> --!>
+       <!-- <div class="trip-box"></div> -->
      </div>
    </article>
+
    <article class="pending-trips trips-list">
      <h1> Pending Trips </h1>
      <div class="pending-reel reel slide">
-       <!-- <div class="trip-box"></div>
-       <div class="trip-box"></div>
-       <div class="trip-box"></div>
-       <div class="trip-box"></div> -->
+       <!-- <div class="trip-box"></div> -->
      </div>
    </article>
+
    <article class="past-trips trips-list">
      <h1> Past Trips </h1>
      <div class="past-reel reel slide">
-       <!-- <div class="trip-box"></div>
-       <div class="trip-box"></div>
-       <div class="trip-box"></div>
-       <div class="trip-box"></div> -->
+       <!-- <div class="trip-box"></div> -->
      </div>
    </article>
+
  </section>
   <script src="bundle.js"></script>
 </body>
