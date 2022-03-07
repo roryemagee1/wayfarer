@@ -16,6 +16,8 @@ import Destinations from './Destinations.js';
 import {fetchData, fetchInstance} from './apiCalls.js';
 import {tripsTestData, oneTrip, travelersTestData, oneTraveler, destinationsTestData} from './testData';
 
+const tripURL = 'http://localhost:3001/api/v1/trips';
+
 // QUERY SELECTORS
 const profileIcons = document.querySelector('.profile-icons');
 
@@ -27,7 +29,8 @@ const upcomingTripsReel = document.querySelector('.upcoming-reel');
 const pendingTripsReel = document.querySelector('.pending-reel');
 const pastTripsReel = document.querySelector('.past-reel');
 
-const destinationList = document.querySelector('.destination-list')
+const destinationList = document.querySelector('.destination-list');
+const tripForm = document.querySelector('.trip-form');
 
 // DOM
 let makePromise = (id) => {Promise.all([fetchData('trips'), fetchData('travelers'), fetchData('destinations'), fetchInstance('travelers', id)]).then(data => {
@@ -44,7 +47,7 @@ let makePromise = (id) => {Promise.all([fetchData('trips'), fetchData('travelers
   // console.log(pastData)
   // console.log(trips);
   // console.log(travelers);
-  console.log(destinations);
+  // console.log(destinations);
   // console.log(traveler);
   loadProfile(traveler, trips, destinations);
   loadDestinations(destinations);
@@ -81,18 +84,64 @@ const loadProfile = (travelerData, tripData, destinationData) => {
       </div>
       <h1> Settings </h1>
     </div>
-  `
+  `;
+  tripForm.userID = travelerData.id;
+  tripForm.destinations = destinationData;
+  tripForm.trips = tripData;
 }
 
 const loadDestinations = (destinationData) => {
   destinationList.innerHTML = '';
   destinationData.data.destinations.forEach(destination => {
-    console.log(destination);
     destinationList.innerHTML += `
       <option id=${destination.id}> ${destination.destination} </option>
     `
   })
 }
+
+const postData = (url, newData) => {
+  fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(newData),
+    headers: { 'Content-Type': 'application/json' }
+  })
+  .then(response => {
+    console.log(response, "response")
+      if(!response.ok) {
+        throw new Error(`Please make sure that all fields are filled in.`);
+      } else {
+      response.json()
+    }
+  }).catch(error => console.log(error));
+}
+
+const getNewTripData = (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  // console.log(e.target);
+  // console.log(e.target.destinations);
+  // console.log(formData);
+  const lastTripID = e.target.trips.data.trips.length;
+  const destName = formData.get('destination-list');
+  // console.log(destName);
+  const destIDObj = e.target.destinations.data.destinations.find(destination => destination.destination === destName);
+  // console.log(destIDObj);
+  const newTrip = {
+    // id: parseInt(trips.data.trips.length + 1),
+    id: lastTripID + 1,
+    userID: parseInt(e.target.userID),
+    destinationID: destIDObj.id,
+    travelers: parseInt(formData.get('guests')),
+    date: formData.get('date'),
+    duration: parseInt(formData.get('duration')),
+    status: "pending",
+    suggestedActivities: []
+  };
+  // console.log(newTrip);
+  postData(tripURL, newTrip);
+  // makePromise();
+  e.target.reset();
+};
 
 // EVENT LISTENERS
 window.addEventListener("onload", makePromise(44));
@@ -100,3 +149,5 @@ window.addEventListener("onload", makePromise(44));
 // 43 has spent money in the first 2 months of 2022.
 // 44 has lots of data.
 // 45 has pending data.
+
+tripForm.addEventListener('submit', postData);
