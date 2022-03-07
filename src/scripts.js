@@ -115,7 +115,43 @@ const postData = (url, newData) => {
   }).catch(error => console.log(error));
 }
 
-const getNewTripData = (e) => {
+// const getNewTripData = (e) => {
+//   e.preventDefault();
+//   const formData = new FormData(e.target);
+//   // console.log(e.target);
+//   // console.log(e.target.destinations);
+//   // console.log(formData);
+//   const lastTripID = e.target.trips.data.trips.length;
+//   const destName = formData.get('destination-list');
+//   // console.log(destName);
+//   const destIDObj = e.target.destinations.data.destinations.find(destination => destination.destination === destName);
+//   // console.log(destIDObj);
+//   const newTrip = {
+//     // id: parseInt(trips.data.trips.length + 1),
+//     id: lastTripID + 1,
+//     userID: parseInt(e.target.userID),
+//     destinationID: destIDObj.id,
+//     travelers: parseInt(formData.get('guests')),
+//     date: formData.get('date'),
+//     duration: parseInt(formData.get('duration')),
+//     status: "pending",
+//     suggestedActivities: []
+//   };
+//   // console.log(newTrip);
+//   postData(tripURL, newTrip);
+//   // makePromise();
+//   e.target.reset();
+// };
+
+// EVENT LISTENERS
+window.addEventListener("onload", makePromise(44));
+
+// 43 has spent money in the first 2 months of 2022.
+// 44 has lots of data.
+// 45 has pending data.
+
+// tripForm.addEventListener('submit', postData);
+tripForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const formData = new FormData(e.target);
   // console.log(e.target);
@@ -126,28 +162,21 @@ const getNewTripData = (e) => {
   // console.log(destName);
   const destIDObj = e.target.destinations.data.destinations.find(destination => destination.destination === destName);
   // console.log(destIDObj);
+  const formattedDate = formData.get('date').replaceAll('-','/');
+  // console.log(dateFormatted);
   const newTrip = {
     // id: parseInt(trips.data.trips.length + 1),
     id: lastTripID + 1,
     userID: parseInt(e.target.userID),
     destinationID: destIDObj.id,
     travelers: parseInt(formData.get('guests')),
-    date: formData.get('date'),
+    date: formattedDate,
     duration: parseInt(formData.get('duration')),
     status: "pending",
     suggestedActivities: []
   };
-  // console.log(newTrip);
+  console.log(newTrip);
   postData(tripURL, newTrip);
-  // makePromise();
+  makePromise(44);
   e.target.reset();
-};
-
-// EVENT LISTENERS
-window.addEventListener("onload", makePromise(44));
-
-// 43 has spent money in the first 2 months of 2022.
-// 44 has lots of data.
-// 45 has pending data.
-
-tripForm.addEventListener('submit', postData);
+});
