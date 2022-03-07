@@ -63,9 +63,9 @@ const loadTripReel = (reelSelector, tripDataSet, destinationDataSet, traveler) =
     console.log(destinationOutput);
     reelSelector.innerHTML += `
       <div class="trip-box" id=${entry.id}>
-        <h6> ${destinationOutput.destination} </h6>
-        <img src="${destinationOutput.image}" alt="${destinationOutput.alt}" />
-        <h6> ${entry.date} </h6>
+        <h6 class="photo-title"> ${destinationOutput.destination} </h6>
+        <img class="photo" src="${destinationOutput.image}" alt="${destinationOutput.alt}" />
+        <h6 class="photo-text"> ${entry.date} </h6>
       </div>
     `;
   })
