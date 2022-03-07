@@ -33,7 +33,7 @@ let makePromise = (id) => {Promise.all([fetchData('trips'), fetchData('travelers
   let travelers = new Travelers(data[1]);
   let destinations = new Destinations(data[2]);
   let traveler = new Traveler(data[3]);
-  let upcomingData = trips.retrieveFutureTrips(traveler, trips.getTodayDate());
+  let upcomingData = trips.retrievePresentAndFutureTrips(traveler, trips.getTodayDate());
   let pendingData = trips.retrievePendingTrips(traveler)
   let pastData = trips.retrievePastTrips(traveler, trips.getTodayDate());
   // console.log(upcomingData);
@@ -84,7 +84,8 @@ const loadProfile = (travelerData, tripData, destinationData) => {
 }
 
 // EVENT LISTENERS
-window.addEventListener("onload", makePromise(43));
+window.addEventListener("onload", makePromise(44));
 
+// 43 has spent money in the first 2 months of 2022.
 // 44 has lots of data.
 // 45 has pending data.

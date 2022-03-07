@@ -41,6 +41,12 @@ class Trips {
     return result;
   }
 
+  retrievePresentAndFutureTrips(traveler, useDate) {
+    let input = this.retrieveAllTrips(traveler);
+    let result = input.filter(trip => (this.dateConversion(trip.date) > this.dateConversionForDayBefore(useDate)) && trip.status === "approved");
+    return result;
+  }
+
   // retrievePendingTrips(traveler, useDate) {
   retrievePendingTrips(traveler) {
     let input = this.retrieveAllTrips(traveler);
