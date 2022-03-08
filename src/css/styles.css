@@ -35,6 +35,7 @@ h1, input, select {
 .login-page {
   width: 100vw;
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
 }
@@ -43,6 +44,7 @@ h1, input, select {
 
 .login-form {
   display: flex;
+  align-items: center;
 }
 
 /******* Nav *******/
@@ -93,6 +95,9 @@ nav {
   width: 100vw;
   background: black;
   margin: 20px;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center; */
 }
 
 /* .date-box {

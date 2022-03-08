@@ -90,8 +90,8 @@ const loadProfile = (travelerData, tripData, destinationData) => {
   profileIcons.innerHTML += `
     <div class="profile-icons">
     <div>
-    <h5> Username: ${travelerData.name} </h5>
-    <h5> Year Spent: ${tripData.getTotalSpent(travelerData, destinationData)} </h5>
+    <h1> Username: ${travelerData.name} </h1>
+    <h1> Spent this Year: ${tripData.getTotalSpent(travelerData, destinationData)} </h5>
     </div>
     <h1> Settings </h1>
     </div>
@@ -107,9 +107,9 @@ const loadTripReel = (reelSelector, tripDataSet, destinationDataSet, traveler) =
     let destinationOutput = destinationDataSet.data.destinations.find(destination => entry.destinationID === destination.id);
     reelSelector.innerHTML += `
       <div class="trip-box" id=${entry.id}>
-        <h6 class="photo-title"> ${destinationOutput.destination} </h6>
+        <p class="photo-title"><strong> ${destinationOutput.destination} </strong></p>
         <img class="photo" src="${destinationOutput.image}" alt="${destinationOutput.alt}" />
-        <h6 class="photo-text alt-text"> ${entry.date} </h6>
+        <p class="photo-text alt-text"> ${entry.date} </p>
       </div>
     `;
   })
@@ -235,7 +235,7 @@ tripForm.addEventListener('submit', (e) => {
   // e.target.reset();
 });
 
-tripForm.addEventListener('mouseover', (e) => {
+submitForm.addEventListener('mouseover', (e) => {
   calculateTripCost(e);
   // e.preventDefault();
   // const formData = new FormData(e.target);
@@ -261,4 +261,7 @@ tripForm.addEventListener('mouseover', (e) => {
   //   <p> Total: ${totalCost }</p>
   // `;
   // e.target.reset();
+});
+tripForm.addEventListener('mouseover', (e) => {
+  calculateTripCost(e);
 });
