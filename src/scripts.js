@@ -65,28 +65,25 @@ const hidePage = () => {
   loginPage.className += ' hidden';
 }
 
-const postTripForm = (eventParam) => {
+const loginToPage = (eventParam) => {
   eventParam.preventDefault();
-  const formData = new FormData(eventParam.target);
-  const lastTripID = eventParam.target.trips.data.trips.length;
-  const destName = formData.get('destination-list');
-  const destIDObj = eventParam.target.destinations.data.destinations.find(destination => destination.destination === destName);
-  const formattedDate = formData.get('date').replaceAll('-','/');
-  const newTrip = {
-    id: lastTripID + 1,
-    userID: parseInt(eventParam.target.userID),
-    destinationID: destIDObj.id,
-    travelers: parseInt(formData.get('guests')),
-    date: formattedDate,
-    duration: parseInt(formData.get('duration')),
-    status: "pending",
-    suggestedActivities: []
-  };
-  console.log(newTrip);
-  postData(tripURL, newTrip);
-  makePromise(43);
+  let formData = new FormData(eventParam.target);
+  let username = formData.get('username');
+  let password = formData.get('password');
+  if (username.includes('traveler') && (password === 'travel')) {
+    let userNum = username.replace('traveler', '');
+    if (Number.isInteger(parseInt(userNum))) {
+      let loginID = parseInt(userNum);
+      console.log(loginID);
+      hidePage();
+      showPage();
+      makePromise(loginID);
+    }
+  }
   eventParam.target.reset();
 }
+
+
 
 const loadProfile = (travelerData, tripData, destinationData) => {
   profileIcons.innerHTML = '';
@@ -127,6 +124,31 @@ const loadDestinations = (destinationData) => {
   })
 }
 
+
+
+const postTripForm = (eventParam) => {
+  eventParam.preventDefault();
+  const formData = new FormData(eventParam.target);
+  const lastTripID = eventParam.target.trips.data.trips.length;
+  const destName = formData.get('destination-list');
+  const destIDObj = eventParam.target.destinations.data.destinations.find(destination => destination.destination === destName);
+  const formattedDate = formData.get('date').replaceAll('-','/');
+  const newTrip = {
+    id: lastTripID + 1,
+    userID: parseInt(eventParam.target.userID),
+    destinationID: destIDObj.id,
+    travelers: parseInt(formData.get('guests')),
+    date: formattedDate,
+    duration: parseInt(formData.get('duration')),
+    status: "pending",
+    suggestedActivities: []
+  };
+  console.log(newTrip);
+  postData(tripURL, newTrip);
+  makePromise(43);
+  eventParam.target.reset();
+}
+
 const postData = (url, newData) => {
   fetch(url, {
     method: 'POST',
@@ -163,10 +185,6 @@ const calculateTripCost = (eventParam) => {
 }
 
 
-
-
-
-
 // EVENT LISTENERS
 window.addEventListener('onload', makePromise(44)); /////////
 
@@ -175,21 +193,22 @@ window.addEventListener('onload', makePromise(44)); /////////
 // 45 has pending data.
 
 loginPage.addEventListener('submit', (e) => {
-  e.preventDefault();
-  let formData = new FormData(e.target);
-  let username = formData.get('username');
-  let password = formData.get('password');
-  if (username.includes('traveler') && (password === 'travel')) {
-    let userNum = username.replace('traveler', '');
-    if (Number.isInteger(parseInt(userNum))) {
-      let loginID = parseInt(userNum);
-      console.log(loginID);
-      hidePage();
-      showPage();
-      makePromise(loginID);
-    }
-  }
-  e.target.reset();
+  loginToPage(e);
+  // e.preventDefault();
+  // let formData = new FormData(e.target);
+  // let username = formData.get('username');
+  // let password = formData.get('password');
+  // if (username.includes('traveler') && (password === 'travel')) {
+  //   let userNum = username.replace('traveler', '');
+  //   if (Number.isInteger(parseInt(userNum))) {
+  //     let loginID = parseInt(userNum);
+  //     console.log(loginID);
+  //     hidePage();
+  //     showPage();
+  //     makePromise(loginID);
+  //   }
+  // }
+  // e.target.reset();
 });
 
 tripForm.addEventListener('submit', (e) => {
