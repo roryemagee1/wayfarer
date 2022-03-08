@@ -109,7 +109,7 @@ nav {
   min-width: 80vw;
   display: flex;
   justify-content: flex-start;
-  align-items: stretch;
+  align-items: center;
 }
 
 /* .upcoming-reel, .past-reel, .pending-reel {} */
@@ -127,11 +127,9 @@ nav {
 }
 
 .trip-box {
-  flex: 1 0 auto;
+  flex: 0 0 auto;
   background: black;
-  /* height: 200px; */
   height: 100%;
-  width: ;
   margin: 10px;
   display: flex;
   flex-direction: column;
@@ -143,18 +141,17 @@ nav {
 .photo {
   height: 100%;
   width: 100%;
-  /* overflow: hidden; */
 }
 
 .photo-title {
   position: relative;
-  top: 50px;
-  /* top: 20%; */
+  top: 40px;
+  left: 5px;
 }
 
 .photo-text {
   position: relative;
-  bottom: 20px;
+  bottom: 40px;
   left: 10px;
 }
 

@@ -35,6 +35,8 @@ const destinationList = document.querySelector('.destination-list');
 const tripForm = document.querySelector('.trip-form');
 const formTotal = document.querySelector('.form-total');
 
+const submitForm = document.querySelector('.submit-form');
+
 // DOM
 let makePromise = (id) => {Promise.all([fetchData('trips'), fetchData('travelers'), fetchData('destinations'), fetchInstance('travelers', id)]).then(data => {
   let trips = new Trips(data[0]);
@@ -88,7 +90,7 @@ const loadTripReel = (reelSelector, tripDataSet, destinationDataSet, traveler) =
       <div class="trip-box" id=${entry.id}>
         <h6 class="photo-title"> ${destinationOutput.destination} </h6>
         <img class="photo" src="${destinationOutput.image}" alt="${destinationOutput.alt}" />
-        <h6 class="photo-text"> ${entry.date} </h6>
+        <h6 class="photo-text alt-text"> ${entry.date} </h6>
       </div>
     `;
   })
@@ -118,6 +120,29 @@ const postData = (url, newData) => {
     }
   }).catch(error => console.log(error));
 }
+
+const calculateTripCost = (eventParam) => {
+  eventParam.preventDefault();
+  const formData = new FormData(eventParam.target);
+  const destName = formData.get('destination-list');
+  const destIDObj = eventParam.target.destinations.data.destinations.find(destination => destination.destination === destName);
+  let totalLodgingCost = destIDObj.estimatedLodgingCostPerDay * parseInt(formData.get('duration'));
+  let totalAirfare = destIDObj.estimatedFlightCostPerPerson * parseInt(formData.get('guests')) * 2;
+  let totalAgentFee = (totalLodgingCost + totalAirfare) * 0.01;
+  let totalCost = totalLodgingCost + totalAirfare + totalAgentFee;
+  let costLedger = [totalLodgingCost, totalAirfare, totalAgentFee, totalCost];
+  if (totalCost) {
+    formTotal.innerHTML = '';
+    formTotal.innerHTML += `
+      <h6> Total Cost: ${totalCost}</h6>
+    `;
+  };
+}
+
+
+
+
+
 
 // EVENT LISTENERS
 window.addEventListener('onload', makePromise(44)); /////////
@@ -168,23 +193,24 @@ tripForm.addEventListener('submit', (e) => {
 });
 
 tripForm.addEventListener('mouseover', (e) => {
-  e.preventDefault();
-  const formData = new FormData(e.target);
-  const destName = formData.get('destination-list');
-  const destIDObj = e.target.destinations.data.destinations.find(destination => destination.destination === destName);
-
-  let totalLodgingCost = destIDObj.estimatedLodgingCostPerDay * parseInt(formData.get('duration'));
-  let totalAirfare = destIDObj.estimatedFlightCostPerPerson * parseInt(formData.get('guests')) * 2;
-  let totalAgentFee = (totalLodgingCost + totalAirfare) * 0.01;
-  let totalCost = totalLodgingCost + totalAirfare + totalAgentFee;
-  let costLedger = [totalLodgingCost, totalAirfare, totalAgentFee, totalCost];
-
-  if (totalCost) {
-    formTotal.innerHTML = '';
-    formTotal.innerHTML += `
-      <h6> Total Cost: ${totalCost}</h6>
-    `;
-  };
+  calculateTripCost(e);
+  // e.preventDefault();
+  // const formData = new FormData(e.target);
+  // const destName = formData.get('destination-list');
+  // const destIDObj = e.target.destinations.data.destinations.find(destination => destination.destination === destName);
+  //
+  // let totalLodgingCost = destIDObj.estimatedLodgingCostPerDay * parseInt(formData.get('duration'));
+  // let totalAirfare = destIDObj.estimatedFlightCostPerPerson * parseInt(formData.get('guests')) * 2;
+  // let totalAgentFee = (totalLodgingCost + totalAirfare) * 0.01;
+  // let totalCost = totalLodgingCost + totalAirfare + totalAgentFee;
+  // let costLedger = [totalLodgingCost, totalAirfare, totalAgentFee, totalCost];
+  //
+  // if (totalCost) {
+  //   formTotal.innerHTML = '';
+  //   formTotal.innerHTML += `
+  //     <h6> Total Cost: ${totalCost}</h6>
+  //   `;
+  // };
   // formTotal.innerHTML += `
   //   <p> Lodging: ${totalLodgingCost} </p>
   //   <p> Airfare: ${totalAirfare} </p>
