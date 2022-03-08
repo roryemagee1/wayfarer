@@ -19,7 +19,7 @@ body {
 /******* Nav *******/
 
 nav {
-  background: red;
+  background: yellow;
   display: flex;
   justify-content: space-between;
   height: 70px;
@@ -44,7 +44,7 @@ nav {
 }
 
 .trip-form {
-  background: blue;
+  background: yellow;
   width: 80vw;
   height: 20px;
   margin: 20px;

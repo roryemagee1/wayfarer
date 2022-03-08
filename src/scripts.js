@@ -58,10 +58,10 @@ const loadProfile = (travelerData, tripData, destinationData) => {
   profileIcons.innerHTML += `
   <div class="profile-icons">
   <div>
-  <h5> Username: ${travelerData.name} </h5>
-  <h5> Year Spent: ${tripData.getTotalSpent(travelerData, destinationData)} </h5>
+  <h6> Username: ${travelerData.name} </h6>
+  <h6> Year Spent: ${tripData.getTotalSpent(travelerData, destinationData)} </h6>
   </div>
-  <h1> Settings </h1>
+  <h6> Settings </h6>
   </div>
   `;
   tripForm.userID = travelerData.id;
@@ -109,7 +109,7 @@ const postData = (url, newData) => {
 }
 
 // EVENT LISTENERS
-window.addEventListener("onload", makePromise(44));
+window.addEventListener("onload", makePromise(43));
 
 // 43 has spent money in the first 2 months of 2022.
 // 44 has lots of data.
@@ -134,7 +134,7 @@ tripForm.addEventListener('submit', (e) => {
   };
   console.log(newTrip);
   postData(tripURL, newTrip);
-  makePromise(44);
+  makePromise(43);
   e.target.reset();
 });
 
