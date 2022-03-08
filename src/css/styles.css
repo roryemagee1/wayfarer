@@ -1,7 +1,7 @@
 html {
-  height: vh;
-  width: vw;
-  background-image: url('../images/Algarve-photo-1.png');
+  height: 100vh;
+  width: 100vw;
+  /* background-image: url('../images/Algarve-photo-1.png'); */
   background-position: center;
   background-size: 300vmin;
 }
@@ -11,9 +11,27 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background-image: url('../images/Algarve-photo-1.png');
+  height: 100vh;
+  width: 100vh;
   /* background-image: url('../images/Algarve-photo-2.png');
   background-position: stretch;
   background-size: 200% */
+}
+
+/******* Login Form *******/
+
+.login-page {
+  width: 100vw;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.login-form-container {}
+
+.login-form {
+  display: flex;
 }
 
 /******* Nav *******/

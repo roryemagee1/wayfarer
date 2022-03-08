@@ -27,7 +27,6 @@ const profileIcons = document.querySelector('.profile-icons');
 const upcomingTrips = document.querySelector('.upcoming-trips');
 const pendingTrips = document.querySelector('.pending-trips');
 const pastTrips = document.querySelector('.past-trips');
-
 const upcomingTripsReel = document.querySelector('.upcoming-reel');
 const pendingTripsReel = document.querySelector('.pending-reel');
 const pastTripsReel = document.querySelector('.past-reel');
