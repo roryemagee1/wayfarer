@@ -19,7 +19,7 @@ import {tripsTestData, oneTrip, travelersTestData, oneTraveler, destinationsTest
 const tripURL = 'http://localhost:3001/api/v1/trips';
 
 // QUERY SELECTORS
-const loginPage = document.querySelector('.login-form');
+const loginPage = document.querySelector('.login-page');
 const dashboard = document.querySelector('.dashboard')
 
 const profileIcons = document.querySelector('.profile-icons');
@@ -120,7 +120,7 @@ const postData = (url, newData) => {
 }
 
 // EVENT LISTENERS
-// window.addEventListener("onload", makePromise(43));
+window.addEventListener('onload', makePromise(44)); /////////
 
 // 43 has spent money in the first 2 months of 2022.
 // 44 has lots of data.

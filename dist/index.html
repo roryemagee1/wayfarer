@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<section class="login-page">
+<section class="login-page hidden"> <!-- Remember to switch back /-->
   <h1> Wayfarer </h1>
   <div class="login-form-container">
     <form class="login-form">
@@ -21,7 +21,7 @@
   </div>
 </section>
 
- <section class="dashboard hidden">
+ <section class="dashboard"> <!-- Remember to switch back /-->
    <nav>
      <h1> Wayfarer </h1>
      <div class="profile-icons">
@@ -31,13 +31,13 @@
      </div>
    </nav>
    <form class="trip-form" id=2>
-     <label for="destination-list"> Choose Destination </label>
+     <label for="destination-list"> Choose Destination: </label>
      <select class="destination-list" name="destination-list" id="destination-list">
      </select>
-     <input type="date" placeholder="Date" name="date" required/>
-     <label for="duration"> Number of Days </label>
+     <input class="date-box" type="date" placeholder="Date" name="date" required/>
+     <label for="duration"> Number of Days: </label>
      <input type="number" name="duration" class="duration" id="duration" min="1" max="20" required/>
-     <label for="guests"> Guests </label>
+     <label for="guests"> Guests: </label>
      <input type="number" name="guests" class="guests" id="guests" min="1" max="6" required/>
      <input type="submit" value="Submit!">
      <div class="form-total">
@@ -47,21 +47,21 @@
    </form>
 
    <article class="upcoming-trips trips-list">
-     <h1> Present & Upcoming Trips </h1>
+     <h1 class="alt-text"> Present & Upcoming Trips </h1>
      <div class="upcoming-reel reel slide">
        <!-- <div class="trip-box"></div> -->
      </div>
    </article>
 
    <article class="pending-trips trips-list">
-     <h1> Pending Trips </h1>
+     <h1 class="alt-text"> Pending Trips </h1>
      <div class="pending-reel reel slide">
        <!-- <div class="trip-box"></div> -->
      </div>
    </article>
 
    <article class="past-trips trips-list">
-     <h1> Past Trips </h1>
+     <h1 class="alt-text"> Past Trips </h1>
      <div class="past-reel reel slide">
        <!-- <div class="trip-box"></div> -->
      </div>

@@ -12,11 +12,22 @@ body {
   flex-direction: column;
   justify-content: space-between;
   background-image: url('../images/Algarve-photo-1.png');
+  background-size: 150%;
   height: 100vh;
   width: 100vh;
   /* background-image: url('../images/Algarve-photo-2.png');
   background-position: stretch;
   background-size: 200% */
+}
+
+/******* General *******/
+
+h1, input, select {
+  margin: 10px;
+}
+
+.alt-text {
+  color: white;
 }
 
 /******* Login Form *******/
@@ -37,11 +48,13 @@ body {
 /******* Nav *******/
 
 nav {
-  background: yellow;
+  background: white;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   height: 70px;
   width: 85vw;
+  border-radius: 50px;
   /* min-width: 800px; */
 }
 
@@ -61,8 +74,11 @@ nav {
   align-items: center;
 }
 
+/******* Form *******/
+
 .trip-form {
-  background: yellow;
+  background: white;
+  border-radius: 50px;
   width: 80vw;
   height: 20px;
   margin: 20px;
@@ -73,20 +89,27 @@ nav {
 }
 
 .trips-list {
-  height: 100%;
-  width: 85vw;
+  height: 40vh;
+  width: 100vw;
+  background: black;
+  margin: 20px;
 }
+
+/* .date-box {
+  margin: 5px;
+} */
+
+/******* Reels *******/
 
 /* .upcoming-trips, .past-trips, .pending-trips {} */
 
 .reel {
-  background: yellow;
-  height: 30vh;
-  width: 80vw;
+  background: white;
+  height: 20vh;
+  min-width: 80vw;
   display: flex;
   justify-content: flex-start;
   align-items: stretch;
-  /* flex-wrap: nowrap;  */
 }
 
 /* .upcoming-reel, .past-reel, .pending-reel {} */
@@ -104,29 +127,28 @@ nav {
 }
 
 .trip-box {
-  background: purple;
-  height: 200px;
-  width: 240px;
+  flex: 1 0 auto;
+  background: black;
+  /* height: 200px; */
+  height: 100%;
+  width: ;
   margin: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: start;
   overflow: hidden;
-  /* flex-flow: wrap; */
-  /* overflow: hidden; */
-  /* align-items: center; */
 }
 
 .photo {
-  height: 150%;
-  width: 150%;
+  height: 100%;
+  width: 100%;
   /* overflow: hidden; */
 }
 
 .photo-title {
   position: relative;
   top: 50px;
-  left: 10px;
   /* top: 20%; */
 }
 
