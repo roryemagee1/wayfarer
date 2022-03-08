@@ -7,28 +7,38 @@
   <title>Webpack Starter Kit</title>
 </head>
 <body>
- <nav>
-   <h1> Wayfarer </h1>
-   <div class="profile-icons">
-     <h1> Username: John Doe-- </h1>
-     <h1> --Image-- </h1>
-     <h1> --Settings-- </h1>
-   </div>
- </nav>
- <section class="dashboard">
 
+<section class="login-page">
+  <form class="login-form">
+  <label for="username"> Username: </label>
+  <input name="username" class="username" id="username" required/>
+  <label for="password"> Password: </label>
+  <input name="password" class="username" id="password" required/>
+  <input type="submit" value="Login">
+  </form>
+</section>
+
+ <section class="dashboard hidden">
+   <nav>
+     <h1> Wayfarer </h1>
+     <div class="profile-icons">
+       <!-- <h1> Username: John Doe </h1>
+       <h1> Image </h1>
+       <h1> Settings </h1> -->
+     </div>
+   </nav>
    <form class="trip-form" id=2>
      <label for="destination-list"> Choose Destination </label>
      <select class="destination-list" name="destination-list" id="destination-list">
      </select>
      <input type="date" placeholder="Date" name="date" required/>
      <label for="duration"> Number of Days </label>
-     <input type="number" name="duration" class="duration" id="duration" min="1" max="20" required>
+     <input type="number" name="duration" class="duration" id="duration" min="1" max="20" required/>
      <!-- <select name="duration">
        <option value=1> 1 </option>
      </select> -->
      <label for="guests"> Guests </label>
-     <input type="number" name="guests" class="guests" id="guests" min="1" max="6" required>
+     <input type="number" name="guests" class="guests" id="guests" min="1" max="6" required/>
      <!-- <select name="guests">
        <option value=1> 1 </option>
      </select> -->

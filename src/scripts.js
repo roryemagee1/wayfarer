@@ -19,6 +19,9 @@ import {tripsTestData, oneTrip, travelersTestData, oneTraveler, destinationsTest
 const tripURL = 'http://localhost:3001/api/v1/trips';
 
 // QUERY SELECTORS
+const loginPage = document.querySelector('.login-form');
+const dashboard = document.querySelector('.dashboard')
+
 const profileIcons = document.querySelector('.profile-icons');
 
 const upcomingTrips = document.querySelector('.upcoming-trips');
@@ -53,16 +56,25 @@ let makePromise = (id) => {Promise.all([fetchData('trips'), fetchData('travelers
 
 // FUNCTIONS
 
+const showPage = () => {
+  dashboard.className = 'dashboard';
+}
+
+const hidePage = () => {
+  loginPage.className += ' hidden';
+}
+
+
 const loadProfile = (travelerData, tripData, destinationData) => {
   profileIcons.innerHTML = '';
   profileIcons.innerHTML += `
-  <div class="profile-icons">
-  <div>
-  <h5> Username: ${travelerData.name} </h5>
-  <h5> Year Spent: ${tripData.getTotalSpent(travelerData, destinationData)} </h5>
-  </div>
-  <h1> Settings </h1>
-  </div>
+    <div class="profile-icons">
+    <div>
+    <h5> Username: ${travelerData.name} </h5>
+    <h5> Year Spent: ${tripData.getTotalSpent(travelerData, destinationData)} </h5>
+    </div>
+    <h1> Settings </h1>
+    </div>
   `;
   tripForm.userID = travelerData.id;
   tripForm.destinations = destinationData;
@@ -109,11 +121,29 @@ const postData = (url, newData) => {
 }
 
 // EVENT LISTENERS
-window.addEventListener("onload", makePromise(43));
+// window.addEventListener("onload", makePromise(43));
 
 // 43 has spent money in the first 2 months of 2022.
 // 44 has lots of data.
 // 45 has pending data.
+
+loginPage.addEventListener('submit', (e) => {
+  e.preventDefault();
+  let formData = new FormData(e.target);
+  let username = formData.get('username');
+  let password = formData.get('password');
+  if (username.includes('traveler') && (password === 'travel')) {
+    let userNum = username.replace('traveler', '');
+    if (Number.isInteger(parseInt(userNum))) {
+      let loginID = parseInt(userNum);
+      console.log(loginID);
+      hidePage();
+      showPage();
+      makePromise(loginID);
+    }
+  }
+  e.target.reset();
+});
 
 tripForm.addEventListener('submit', (e) => {
   e.preventDefault();
