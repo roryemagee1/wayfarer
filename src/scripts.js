@@ -109,7 +109,7 @@ const postData = (url, newData) => {
 }
 
 // EVENT LISTENERS
-window.addEventListener("onload", makePromise(44));
+window.addEventListener("onload", makePromise(43));
 
 // 43 has spent money in the first 2 months of 2022.
 // 44 has lots of data.
@@ -134,7 +134,7 @@ tripForm.addEventListener('submit', (e) => {
   };
   console.log(newTrip);
   postData(tripURL, newTrip);
-  makePromise(44);
+  makePromise(43);
   e.target.reset();
 });
 
