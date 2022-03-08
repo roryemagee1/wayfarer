@@ -156,6 +156,7 @@ tripForm.addEventListener('mouseover', (e) => {
       <h6> Total Cost: ${totalCost}</h6>
     `;
   };
+
   // formTotal.innerHTML += `
   //   <p> Lodging: ${totalLodgingCost} </p>
   //   <p> Airfare: ${totalAirfare} </p>
@@ -163,4 +164,5 @@ tripForm.addEventListener('mouseover', (e) => {
   //   <p> Total: ${totalCost }</p>
   // `;
   // e.target.reset();
+  
 });
