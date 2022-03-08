@@ -19,12 +19,12 @@ body {
 /******* Nav *******/
 
 nav {
-  background: red;
+  background: yellow;
   display: flex;
   justify-content: space-between;
   height: 70px;
-  /* width: vw; */
-  min-width: 600px;
+  width: 85vw;
+  /* min-width: 800px; */
 }
 
 .profile-icons {
@@ -44,13 +44,14 @@ nav {
 }
 
 .trip-form {
-  background: blue;
+  background: yellow;
   width: 80vw;
   height: 20px;
   margin: 20px;
   padding: 20px;
   display: flex;
   justify-content: space-around;
+  align-items: center;
 }
 
 .trips-list {
@@ -117,4 +118,8 @@ nav {
   left: 10px;
 }
 
-/* Test */
+/******* Functional *******/
+
+.hidden {
+  display: none!important;
+}
