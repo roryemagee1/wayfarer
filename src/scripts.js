@@ -65,6 +65,28 @@ const hidePage = () => {
   loginPage.className += ' hidden';
 }
 
+const postTripForm = (eventParam) => {
+  eventParam.preventDefault();
+  const formData = new FormData(eventParam.target);
+  const lastTripID = eventParam.target.trips.data.trips.length;
+  const destName = formData.get('destination-list');
+  const destIDObj = eventParam.target.destinations.data.destinations.find(destination => destination.destination === destName);
+  const formattedDate = formData.get('date').replaceAll('-','/');
+  const newTrip = {
+    id: lastTripID + 1,
+    userID: parseInt(eventParam.target.userID),
+    destinationID: destIDObj.id,
+    travelers: parseInt(formData.get('guests')),
+    date: formattedDate,
+    duration: parseInt(formData.get('duration')),
+    status: "pending",
+    suggestedActivities: []
+  };
+  console.log(newTrip);
+  postData(tripURL, newTrip);
+  makePromise(43);
+  eventParam.target.reset();
+}
 
 const loadProfile = (travelerData, tripData, destinationData) => {
   profileIcons.innerHTML = '';
@@ -137,6 +159,7 @@ const calculateTripCost = (eventParam) => {
       <h6> Total Cost: ${totalCost}</h6>
     `;
   };
+  // eventParam.target.reset();
 }
 
 
@@ -170,26 +193,27 @@ loginPage.addEventListener('submit', (e) => {
 });
 
 tripForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const formData = new FormData(e.target);
-  const lastTripID = e.target.trips.data.trips.length;
-  const destName = formData.get('destination-list');
-  const destIDObj = e.target.destinations.data.destinations.find(destination => destination.destination === destName);
-  const formattedDate = formData.get('date').replaceAll('-','/');
-  const newTrip = {
-    id: lastTripID + 1,
-    userID: parseInt(e.target.userID),
-    destinationID: destIDObj.id,
-    travelers: parseInt(formData.get('guests')),
-    date: formattedDate,
-    duration: parseInt(formData.get('duration')),
-    status: "pending",
-    suggestedActivities: []
-  };
-  console.log(newTrip);
-  postData(tripURL, newTrip);
-  makePromise(43);
-  e.target.reset();
+  postTripForm(e);
+  // e.preventDefault();
+  // const formData = new FormData(e.target);
+  // const lastTripID = e.target.trips.data.trips.length;
+  // const destName = formData.get('destination-list');
+  // const destIDObj = e.target.destinations.data.destinations.find(destination => destination.destination === destName);
+  // const formattedDate = formData.get('date').replaceAll('-','/');
+  // const newTrip = {
+  //   id: lastTripID + 1,
+  //   userID: parseInt(e.target.userID),
+  //   destinationID: destIDObj.id,
+  //   travelers: parseInt(formData.get('guests')),
+  //   date: formattedDate,
+  //   duration: parseInt(formData.get('duration')),
+  //   status: "pending",
+  //   suggestedActivities: []
+  // };
+  // console.log(newTrip);
+  // postData(tripURL, newTrip);
+  // makePromise(43);
+  // e.target.reset();
 });
 
 tripForm.addEventListener('mouseover', (e) => {
