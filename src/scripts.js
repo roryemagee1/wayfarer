@@ -159,7 +159,7 @@ const postData = (url, newData) => {
   .then(response => {
     console.log(response, "response")
       if (!response.ok) {
-        throw new Error(`Please make sure that all fields are filled in.`);
+        throw new Error(`Check for a response code outside of the 200 range.`);
       } else {
         response.json()
       };
