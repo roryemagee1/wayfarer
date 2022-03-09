@@ -94,7 +94,7 @@ const loadProfile = (travelerData, tripData, destinationData) => {
     <div class="profile-icons">
     <div>
     <h1> Username: ${travelerData.name} </h1>
-    <h1> Spent this Year: ${tripData.getTotalSpent(travelerData, destinationData)} </h5>
+    <h1> Spent this Year: ${tripData.getTotalSpent(travelerData, destinationData)} </h1>
     </div>
     <h1> Settings </h1>
     </div>
