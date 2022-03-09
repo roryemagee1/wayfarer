@@ -19,15 +19,15 @@ import {tripsTestData, oneTrip, travelersTestData, oneTraveler, destinationsTest
 const tripURL = 'http://localhost:3001/api/v1/trips';
 
 // QUERY SELECTORS
-const loginPage = document.querySelector('.login-form');
-const dashboard = document.querySelector('.dashboard')
+const loginPage = document.querySelector('.login-page');
+const dashboard = document.querySelector('.dashboard');
+const loginStatus = document.querySelector('.login-status');
 
 const profileIcons = document.querySelector('.profile-icons');
 
 const upcomingTrips = document.querySelector('.upcoming-trips');
 const pendingTrips = document.querySelector('.pending-trips');
 const pastTrips = document.querySelector('.past-trips');
-
 const upcomingTripsReel = document.querySelector('.upcoming-reel');
 const pendingTripsReel = document.querySelector('.pending-reel');
 const pastTripsReel = document.querySelector('.past-reel');
@@ -35,6 +35,8 @@ const pastTripsReel = document.querySelector('.past-reel');
 const destinationList = document.querySelector('.destination-list');
 const tripForm = document.querySelector('.trip-form');
 const formTotal = document.querySelector('.form-total');
+
+const submitForm = document.querySelector('.submit-form');
 
 // DOM
 let makePromise = (id) => {Promise.all([fetchData('trips'), fetchData('travelers'), fetchData('destinations'), fetchInstance('travelers', id)]).then(data => {
@@ -64,14 +66,47 @@ const hidePage = () => {
   loginPage.className += ' hidden';
 }
 
+const updateLoginStatus = () => {
+  loginStatus.innerText = '';
+  loginStatus.innerText += `Login failed, try again!'`;
+  setTimeout(clearLoginStatus, 3000);
+};
+
+const clearLoginStatus = () => {
+  loginStatus.innerText = '';
+}
+
+const loginToPage = (eventParam) => {
+  eventParam.preventDefault();
+  let formData = new FormData(eventParam.target);
+  let username = formData.get('username');
+  let password = formData.get('password');
+  if (username.includes('traveler') && (password === 'travel')) {
+    let userNum = username.replace('traveler', '');
+    if (Number.isInteger(parseInt(userNum))) {
+      let loginID = parseInt(userNum);
+      console.log(loginID);
+      hidePage();
+      showPage();
+      makePromise(loginID);
+    } else {
+      updateLoginStatus();
+    }
+  } else {
+    updateLoginStatus();
+  }
+  eventParam.target.reset();
+}
+
+
 
 const loadProfile = (travelerData, tripData, destinationData) => {
   profileIcons.innerHTML = '';
   profileIcons.innerHTML += `
     <div class="profile-icons">
     <div>
-    <h5> Username: ${travelerData.name} </h5>
-    <h5> Year Spent: ${tripData.getTotalSpent(travelerData, destinationData)} </h5>
+    <h1> Username: ${travelerData.name} </h1>
+    <h1> Spent this Year: ${tripData.getTotalSpent(travelerData, destinationData)} </h5>
     </div>
     <h1> Settings </h1>
     </div>
@@ -87,9 +122,9 @@ const loadTripReel = (reelSelector, tripDataSet, destinationDataSet, traveler) =
     let destinationOutput = destinationDataSet.data.destinations.find(destination => entry.destinationID === destination.id);
     reelSelector.innerHTML += `
       <div class="trip-box" id=${entry.id}>
-        <h6 class="photo-title"> ${destinationOutput.destination} </h6>
+        <p class="photo-title"><strong> ${destinationOutput.destination} </strong></p>
         <img class="photo" src="${destinationOutput.image}" alt="${destinationOutput.alt}" />
-        <h6 class="photo-text"> ${entry.date} </h6>
+        <p class="photo-text alt-text"> ${entry.date} </p>
       </div>
     `;
   })
@@ -102,6 +137,31 @@ const loadDestinations = (destinationData) => {
       <option id=${destination.id}> ${destination.destination} </option>
     `
   })
+}
+
+
+
+const postTripForm = (eventParam) => {
+  eventParam.preventDefault();
+  const formData = new FormData(eventParam.target);
+  const lastTripID = eventParam.target.trips.data.trips.length;
+  const destName = formData.get('destination-list');
+  const destIDObj = eventParam.target.destinations.data.destinations.find(destination => destination.destination === destName);
+  const formattedDate = formData.get('date').replaceAll('-','/');
+  const newTrip = {
+    id: lastTripID + 1,
+    userID: parseInt(eventParam.target.userID),
+    destinationID: destIDObj.id,
+    travelers: parseInt(formData.get('guests')),
+    date: formattedDate,
+    duration: parseInt(formData.get('duration')),
+    status: "pending",
+    suggestedActivities: []
+  };
+  console.log(newTrip);
+  postData(tripURL, newTrip);
+  makePromise(eventParam.target.userID);
+  eventParam.target.reset();
 }
 
 const postData = (url, newData) => {
@@ -120,72 +180,95 @@ const postData = (url, newData) => {
   }).catch(error => console.log(error));
 }
 
+const calculateTripCost = (eventParam) => {
+  eventParam.preventDefault();
+  const formData = new FormData(eventParam.target);
+  const destName = formData.get('destination-list');
+  const destIDObj = eventParam.target.destinations.data.destinations.find(destination => destination.destination === destName);
+  let totalLodgingCost = destIDObj.estimatedLodgingCostPerDay * parseInt(formData.get('duration'));
+  let totalAirfare = destIDObj.estimatedFlightCostPerPerson * parseInt(formData.get('guests')) * 2;
+  let totalAgentFee = (totalLodgingCost + totalAirfare) * 0.01;
+  let totalCost = totalLodgingCost + totalAirfare + totalAgentFee;
+  let costLedger = [totalLodgingCost, totalAirfare, totalAgentFee, totalCost];
+  if (totalCost) {
+    formTotal.innerHTML = '';
+    formTotal.innerHTML += `
+      <p> Total Trip Cost: ${totalCost}</p>
+    `;
+  };
+  // eventParam.target.reset();
+}
+
+
 // EVENT LISTENERS
-// window.addEventListener("onload", makePromise(43));
+// window.addEventListener('onload', makePromise(44)); /////////
 
 // 43 has spent money in the first 2 months of 2022.
 // 44 has lots of data.
 // 45 has pending data.
 
 loginPage.addEventListener('submit', (e) => {
-  e.preventDefault();
-  let formData = new FormData(e.target);
-  let username = formData.get('username');
-  let password = formData.get('password');
-  if (username.includes('traveler') && (password === 'travel')) {
-    let userNum = username.replace('traveler', '');
-    if (Number.isInteger(parseInt(userNum))) {
-      let loginID = parseInt(userNum);
-      console.log(loginID);
-      hidePage();
-      showPage();
-      makePromise(loginID);
-    }
-  }
-  e.target.reset();
+  loginToPage(e);
+  // e.preventDefault();
+  // let formData = new FormData(e.target);
+  // let username = formData.get('username');
+  // let password = formData.get('password');
+  // if (username.includes('traveler') && (password === 'travel')) {
+  //   let userNum = username.replace('traveler', '');
+  //   if (Number.isInteger(parseInt(userNum))) {
+  //     let loginID = parseInt(userNum);
+  //     console.log(loginID);
+  //     hidePage();
+  //     showPage();
+  //     makePromise(loginID);
+  //   }
+  // }
+  // e.target.reset();
 });
 
 tripForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const formData = new FormData(e.target);
-  const lastTripID = e.target.trips.data.trips.length;
-  const destName = formData.get('destination-list');
-  const destIDObj = e.target.destinations.data.destinations.find(destination => destination.destination === destName);
-  const formattedDate = formData.get('date').replaceAll('-','/');
-  const newTrip = {
-    id: lastTripID + 1,
-    userID: parseInt(e.target.userID),
-    destinationID: destIDObj.id,
-    travelers: parseInt(formData.get('guests')),
-    date: formattedDate,
-    duration: parseInt(formData.get('duration')),
-    status: "pending",
-    suggestedActivities: []
-  };
-  console.log(newTrip);
-  postData(tripURL, newTrip);
-  makePromise(43);
-  e.target.reset();
+  postTripForm(e);
+  // e.preventDefault();
+  // const formData = new FormData(e.target);
+  // const lastTripID = e.target.trips.data.trips.length;
+  // const destName = formData.get('destination-list');
+  // const destIDObj = e.target.destinations.data.destinations.find(destination => destination.destination === destName);
+  // const formattedDate = formData.get('date').replaceAll('-','/');
+  // const newTrip = {
+  //   id: lastTripID + 1,
+  //   userID: parseInt(e.target.userID),
+  //   destinationID: destIDObj.id,
+  //   travelers: parseInt(formData.get('guests')),
+  //   date: formattedDate,
+  //   duration: parseInt(formData.get('duration')),
+  //   status: "pending",
+  //   suggestedActivities: []
+  // };
+  // console.log(newTrip);
+  // postData(tripURL, newTrip);
+  // makePromise(43);
+  // e.target.reset();
 });
 
-tripForm.addEventListener('mouseover', (e) => {
-  e.preventDefault();
-  const formData = new FormData(e.target);
-  const destName = formData.get('destination-list');
-  const destIDObj = e.target.destinations.data.destinations.find(destination => destination.destination === destName);
-
-  let totalLodgingCost = destIDObj.estimatedLodgingCostPerDay * parseInt(formData.get('duration'));
-  let totalAirfare = destIDObj.estimatedFlightCostPerPerson * parseInt(formData.get('guests')) * 2;
-  let totalAgentFee = (totalLodgingCost + totalAirfare) * 0.01;
-  let totalCost = totalLodgingCost + totalAirfare + totalAgentFee;
-  let costLedger = [totalLodgingCost, totalAirfare, totalAgentFee, totalCost];
-
-  if (totalCost) {
-    formTotal.innerHTML = '';
-    formTotal.innerHTML += `
-      <h6> Total Cost: ${totalCost}</h6>
-    `;
-  };
+submitForm.addEventListener('mouseover', (e) => {
+  calculateTripCost(e);
+  // e.preventDefault();
+  // const formData = new FormData(e.target);
+  // const destName = formData.get('destination-list');
+  // const destIDObj = e.target.destinations.data.destinations.find(destination => destination.destination === destName);
+  //
+  // let totalLodgingCost = destIDObj.estimatedLodgingCostPerDay * parseInt(formData.get('duration'));
+  // let totalAirfare = destIDObj.estimatedFlightCostPerPerson * parseInt(formData.get('guests')) * 2;
+  // let totalAgentFee = (totalLodgingCost + totalAirfare) * 0.01;
+  // let totalCost = totalLodgingCost + totalAirfare + totalAgentFee;
+  // let costLedger = [totalLodgingCost, totalAirfare, totalAgentFee, totalCost];
+  //
+  // if (totalCost) {
+  //   formTotal.innerHTML = '';
+  //   formTotal.innerHTML += `
+  //     <h6> Total Cost: ${totalCost}</h6>
+  //   `;
+  // };
   // formTotal.innerHTML += `
   //   <p> Lodging: ${totalLodgingCost} </p>
   //   <p> Airfare: ${totalAirfare} </p>
@@ -193,4 +276,7 @@ tripForm.addEventListener('mouseover', (e) => {
   //   <p> Total: ${totalCost }</p>
   // `;
   // e.target.reset();
+});
+tripForm.addEventListener('mouseover', (e) => {
+  calculateTripCost(e);
 });
