@@ -37,6 +37,9 @@ Password travel
 
 ## Illustrations
 
+![](https://media.giphy.com/media/Xt5AjKUBAOkQgYlZLo/giphy.gif)
+![](https://media.giphy.com/media/33V5iV854kf8FPU9ZC/giphy.gif)
+
 ## Technologies
 
 - JavaScript
