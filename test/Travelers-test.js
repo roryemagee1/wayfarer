@@ -6,11 +6,9 @@ import {tripsTestData, oneTrip, travelersTestData, oneTraveler} from '../src/tes
 describe('Travelers', () => {
 
   let travelers;
-  // let notTravelers;
 
   beforeEach(() => {
     travelers = new Travelers(travelersTestData);
-    // notTravelers = new Travelers(tripsTestData);
   })
 
   it('should be a function', () => {

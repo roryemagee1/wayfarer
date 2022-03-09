@@ -87,8 +87,6 @@ describe('Trips', () => {
     ]);
   });
 
-  // retrievePresentAndFutureTrips()
-
   it('should have a method for pulling the user\'s present and future trips, together', () => {
     expect(trips.retrieveTripsFromNow(traveler1, '2022/03/05')).to.deep.equal([
       {"id":1,"userID":1,"destinationID":49,"travelers":1,"date":"2022/09/16","duration":8,"status":"approved","suggestedActivities":[]},
@@ -105,7 +103,7 @@ describe('Trips', () => {
 
   // it('should have a method for getting todays\'s date', () => {
   //   expect(trips.getTodayDate()).to.equal('2022/03/06');
-  // });  <----- This test is commented out because it always fails once the date changes.
+  // });  <-- This test is commented out because it always fails once the date changes.
 
   it('should have a method for getting the date of the beginning of the year', () => {
     expect(trips.getYearBeginDate()).to.equal('2022/01/01');

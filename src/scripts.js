@@ -1,11 +1,4 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you tell webpack to use a CSS (SCSS) file
 import './css/styles.css';
-// import './css/base.scss';
-
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/Algarve-photo-1.png'
 import './images/Algarve-photo-2.png'
 import Trips from './Trips.js';
@@ -22,24 +15,22 @@ const tripURL = 'http://localhost:3001/api/v1/trips';
 const loginPage = document.querySelector('.login-page');
 const dashboard = document.querySelector('.dashboard');
 const loginStatus = document.querySelector('.login-status');
-
 const profileIcons = document.querySelector('.profile-icons');
-
 const upcomingTrips = document.querySelector('.upcoming-trips');
 const pendingTrips = document.querySelector('.pending-trips');
 const pastTrips = document.querySelector('.past-trips');
 const upcomingTripsReel = document.querySelector('.upcoming-reel');
 const pendingTripsReel = document.querySelector('.pending-reel');
 const pastTripsReel = document.querySelector('.past-reel');
-
 const destinationList = document.querySelector('.destination-list');
 const tripForm = document.querySelector('.trip-form');
 const formTotal = document.querySelector('.form-total');
-
 const submitForm = document.querySelector('.submit-form');
 
 // DOM
-let makePromise = (id) => {Promise.all([fetchData('trips'), fetchData('travelers'), fetchData('destinations'), fetchInstance('travelers', id)]).then(data => {
+let makePromise = (id) => {
+  Promise.all([fetchData('trips'), fetchData('travelers'), fetchData('destinations'), fetchInstance('travelers', id)])
+.then(data => {
   let trips = new Trips(data[0]);
   let travelers = new Travelers(data[1]);
   let destinations = new Destinations(data[2]);
@@ -60,11 +51,11 @@ let makePromise = (id) => {Promise.all([fetchData('trips'), fetchData('travelers
 
 const showPage = () => {
   dashboard.className = 'dashboard';
-}
+};
 
 const hidePage = () => {
   loginPage.className += ' hidden';
-}
+};
 
 const updateLoginStatus = () => {
   loginStatus.innerText = '';
@@ -74,7 +65,7 @@ const updateLoginStatus = () => {
 
 const clearLoginStatus = () => {
   loginStatus.innerText = '';
-}
+};
 
 const loginToPage = (eventParam) => {
   eventParam.preventDefault();
@@ -85,20 +76,17 @@ const loginToPage = (eventParam) => {
     let userNum = username.replace('traveler', '');
     if (Number.isInteger(parseInt(userNum))) {
       let loginID = parseInt(userNum);
-      console.log(loginID);
       hidePage();
       showPage();
       makePromise(loginID);
     } else {
       updateLoginStatus();
-    }
+    };
   } else {
     updateLoginStatus();
-  }
+  };
   eventParam.target.reset();
-}
-
-
+};
 
 const loadProfile = (travelerData, tripData, destinationData) => {
   profileIcons.innerHTML = '';
@@ -114,7 +102,7 @@ const loadProfile = (travelerData, tripData, destinationData) => {
   tripForm.userID = travelerData.id;
   tripForm.destinations = destinationData;
   tripForm.trips = tripData;
-}
+};
 
 const loadTripReel = (reelSelector, tripDataSet, destinationDataSet, traveler) => {
   reelSelector.innerHTML = '';
@@ -127,19 +115,17 @@ const loadTripReel = (reelSelector, tripDataSet, destinationDataSet, traveler) =
         <p class="photo-text alt-text"> ${entry.date} </p>
       </div>
     `;
-  })
-}
+  });
+};
 
 const loadDestinations = (destinationData) => {
   destinationList.innerHTML = '';
   destinationData.data.destinations.forEach(destination => {
     destinationList.innerHTML += `
       <option id=${destination.id}> ${destination.destination} </option>
-    `
-  })
-}
-
-
+    `;
+  });
+};
 
 const postTripForm = (eventParam) => {
   eventParam.preventDefault();
@@ -162,7 +148,7 @@ const postTripForm = (eventParam) => {
   postData(tripURL, newTrip);
   makePromise(eventParam.target.userID);
   eventParam.target.reset();
-}
+};
 
 const postData = (url, newData) => {
   fetch(url, {
@@ -172,13 +158,13 @@ const postData = (url, newData) => {
   })
   .then(response => {
     console.log(response, "response")
-      if(!response.ok) {
+      if (!response.ok) {
         throw new Error(`Please make sure that all fields are filled in.`);
       } else {
-      response.json()
-    }
-  }).catch(error => console.log(error));
-}
+        response.json()
+      };
+  }).catch(error => console.log(error, "error"));
+};
 
 const calculateTripCost = (eventParam) => {
   eventParam.preventDefault();
@@ -193,90 +179,28 @@ const calculateTripCost = (eventParam) => {
   if (totalCost) {
     formTotal.innerHTML = '';
     formTotal.innerHTML += `
-      <p> Total Trip Cost: ${totalCost}</p>
+      <p> Total Cost: ${totalCost}</p>
     `;
   };
-  // eventParam.target.reset();
-}
+};
 
 
 // EVENT LISTENERS
-// window.addEventListener('onload', makePromise(44)); /////////
 
-// 43 has spent money in the first 2 months of 2022.
-// 44 has lots of data.
-// 45 has pending data.
+// window.addEventListener('onload', makePromise(44)); <-- I'm leaving this in here because it helps whenever I need to disable the login page to work on the dashboard.
 
 loginPage.addEventListener('submit', (e) => {
   loginToPage(e);
-  // e.preventDefault();
-  // let formData = new FormData(e.target);
-  // let username = formData.get('username');
-  // let password = formData.get('password');
-  // if (username.includes('traveler') && (password === 'travel')) {
-  //   let userNum = username.replace('traveler', '');
-  //   if (Number.isInteger(parseInt(userNum))) {
-  //     let loginID = parseInt(userNum);
-  //     console.log(loginID);
-  //     hidePage();
-  //     showPage();
-  //     makePromise(loginID);
-  //   }
-  // }
-  // e.target.reset();
 });
 
 tripForm.addEventListener('submit', (e) => {
   postTripForm(e);
-  // e.preventDefault();
-  // const formData = new FormData(e.target);
-  // const lastTripID = e.target.trips.data.trips.length;
-  // const destName = formData.get('destination-list');
-  // const destIDObj = e.target.destinations.data.destinations.find(destination => destination.destination === destName);
-  // const formattedDate = formData.get('date').replaceAll('-','/');
-  // const newTrip = {
-  //   id: lastTripID + 1,
-  //   userID: parseInt(e.target.userID),
-  //   destinationID: destIDObj.id,
-  //   travelers: parseInt(formData.get('guests')),
-  //   date: formattedDate,
-  //   duration: parseInt(formData.get('duration')),
-  //   status: "pending",
-  //   suggestedActivities: []
-  // };
-  // console.log(newTrip);
-  // postData(tripURL, newTrip);
-  // makePromise(43);
-  // e.target.reset();
 });
 
 submitForm.addEventListener('mouseover', (e) => {
   calculateTripCost(e);
-  // e.preventDefault();
-  // const formData = new FormData(e.target);
-  // const destName = formData.get('destination-list');
-  // const destIDObj = e.target.destinations.data.destinations.find(destination => destination.destination === destName);
-  //
-  // let totalLodgingCost = destIDObj.estimatedLodgingCostPerDay * parseInt(formData.get('duration'));
-  // let totalAirfare = destIDObj.estimatedFlightCostPerPerson * parseInt(formData.get('guests')) * 2;
-  // let totalAgentFee = (totalLodgingCost + totalAirfare) * 0.01;
-  // let totalCost = totalLodgingCost + totalAirfare + totalAgentFee;
-  // let costLedger = [totalLodgingCost, totalAirfare, totalAgentFee, totalCost];
-  //
-  // if (totalCost) {
-  //   formTotal.innerHTML = '';
-  //   formTotal.innerHTML += `
-  //     <h6> Total Cost: ${totalCost}</h6>
-  //   `;
-  // };
-  // formTotal.innerHTML += `
-  //   <p> Lodging: ${totalLodgingCost} </p>
-  //   <p> Airfare: ${totalAirfare} </p>
-  //   <p> Agent Fee: ${totalAgentFee} </p>
-  //   <p> Total: ${totalCost }</p>
-  // `;
-  // e.target.reset();
 });
+
 tripForm.addEventListener('mouseover', (e) => {
   calculateTripCost(e);
 });
