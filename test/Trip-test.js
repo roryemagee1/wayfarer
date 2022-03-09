@@ -60,9 +60,4 @@ describe('Trip', () => {
     expect(trip.suggestedActivities).to.deep.equal([]);
   });
 
-  // it('should hold the user traveler type', () => {
-  //   expect(traveler.travelerType).to.equal('relaxer');
-  //   expect(traveler.travelerType).to.not.equal('thrill-seeker');
-  // });
-
 });

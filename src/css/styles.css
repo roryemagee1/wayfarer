@@ -1,13 +1,11 @@
 html {
   height: 100vh;
   width: 100vw;
-  /* background-image: url('../images/Algarve-photo-1.png'); */
   background-position: center;
   background-size: 300vmin;
 }
 
 body {
-  /* background: green; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -15,9 +13,6 @@ body {
   background-size: 150%;
   height: 100vh;
   width: 100vh;
-  /* background-image: url('../images/Algarve-photo-2.png');
-  background-position: stretch;
-  background-size: 200% */
 }
 
 /******* General *******/
@@ -35,7 +30,6 @@ h1, input, select {
 .login-page {
   width: 100vw;
   display: flex;
-  /* flex-direction: column;   */
   justify-content: space-around;
   align-items: center;
 }
@@ -61,7 +55,6 @@ nav {
   height: 70px;
   width: 85vw;
   border-radius: 50px;
-  /* min-width: 800px; */
 }
 
 .profile-icons {
@@ -72,7 +65,6 @@ nav {
 /******* Dashboard *******/
 
 .dashboard {
-  /* height: 80vh; */
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -99,14 +91,7 @@ nav {
   width: 100vw;
   background: black;
   margin: 20px;
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center; */
 }
-
-/* .date-box {
-  margin: 5px;
-} */
 
 /******* Reels *******/
 
@@ -169,3 +154,12 @@ nav {
 .hidden {
   display: none!important;
 }
+
+/******* Target-only Classes *******/
+
+/* .upcoming-trips,
+.past-trips,
+.pending-trips,
+.upcoming-reel,
+.past-reel,
+.pending-reel */
