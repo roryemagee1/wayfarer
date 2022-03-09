@@ -43,6 +43,17 @@ let makePromise = (id) => {
   loadTripReel(upcomingTripsReel, upcomingData, destinations, traveler);
   loadTripReel(pendingTripsReel, pendingData, destinations, traveler);
   loadTripReel(pastTripsReel, pastData, destinations, traveler);
+  tripForm.addEventListener('submit', (e) => {
+    postTripForm(e);
+  });
+
+  submitForm.addEventListener('mouseover', (e) => {
+    calculateTripCost(e);
+  });
+
+  tripForm.addEventListener('mouseover', (e) => {
+    calculateTripCost(e);
+  });
   })
   .catch(error => console.log(error));
 };
