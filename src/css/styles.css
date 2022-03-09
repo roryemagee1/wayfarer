@@ -35,7 +35,7 @@ h1, input, select {
 .login-page {
   width: 100vw;
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column;   */
   justify-content: space-around;
   align-items: center;
 }
@@ -45,6 +45,10 @@ h1, input, select {
 .login-form {
   display: flex;
   align-items: center;
+}
+
+.login-status {
+  margin: 20px;
 }
 
 /******* Nav *******/

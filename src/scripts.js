@@ -20,7 +20,8 @@ const tripURL = 'http://localhost:3001/api/v1/trips';
 
 // QUERY SELECTORS
 const loginPage = document.querySelector('.login-page');
-const dashboard = document.querySelector('.dashboard')
+const dashboard = document.querySelector('.dashboard');
+const loginStatus = document.querySelector('.login-status');
 
 const profileIcons = document.querySelector('.profile-icons');
 
@@ -65,6 +66,16 @@ const hidePage = () => {
   loginPage.className += ' hidden';
 }
 
+const updateLoginStatus = () => {
+  loginStatus.innerText = '';
+  loginStatus.innerText += `Login failed, try again!'`;
+  setTimeout(clearLoginStatus, 3000);
+};
+
+const clearLoginStatus = () => {
+  loginStatus.innerText = '';
+}
+
 const loginToPage = (eventParam) => {
   eventParam.preventDefault();
   let formData = new FormData(eventParam.target);
@@ -78,7 +89,11 @@ const loginToPage = (eventParam) => {
       hidePage();
       showPage();
       makePromise(loginID);
+    } else {
+      updateLoginStatus();
     }
+  } else {
+    updateLoginStatus();
   }
   eventParam.target.reset();
 }
