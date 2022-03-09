@@ -145,7 +145,7 @@ const postTripForm = (eventParam) => {
   };
   console.log(newTrip);
   postData(tripURL, newTrip);
-  makePromise(43);
+  makePromise(eventParam.target.userID);
   eventParam.target.reset();
 }
 
@@ -178,7 +178,7 @@ const calculateTripCost = (eventParam) => {
   if (totalCost) {
     formTotal.innerHTML = '';
     formTotal.innerHTML += `
-      <h6> Total Cost: ${totalCost}</h6>
+      <p> Total Trip Cost: ${totalCost}</p>
     `;
   };
   // eventParam.target.reset();
@@ -186,7 +186,7 @@ const calculateTripCost = (eventParam) => {
 
 
 // EVENT LISTENERS
-window.addEventListener('onload', makePromise(44)); /////////
+// window.addEventListener('onload', makePromise(44)); /////////
 
 // 43 has spent money in the first 2 months of 2022.
 // 44 has lots of data.
